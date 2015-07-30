@@ -386,7 +386,7 @@ concise_catalogue_out_name = 'python_src_assoc_'
 for x in range(total_required):
 	concise_catalogue_out_name += str(wavelengths_required[x]) +'_'
 concise_catalogue_out_name += str(beam) + 'asec.dat'
-concise_catalogue_out_path = output_loc + catalogue_out_name
+concise_catalogue_out_path = output_loc + concise_catalogue_out_name
 concise_catalogue_out = open(concise_catalogue_out_path, 'w')
 concise_header = ['map_name']
 for x in range(total_required):
@@ -398,11 +398,10 @@ concise_catalogue_out.write("".join(data.ljust(col_width) for data in concise_he
 concise_catalogue_out.write('\n' + '-'*135 + '\n')
 
 for x in range(count_candidates):
-	row = [canidate_maps[x]]
+	row = [candidate_maps[x]]
 	for wl in wavelengths_required:
 		row.append("{0:.4f}".format(candidate_glons[wl][x]))
 		row.append("{0:.4f}".format(candidate_glats[wl][x]))
-	print "".join(data.ljust(col_width) for data in row)
 	concise_catalogue_out.write("".join(data.ljust(col_width) for data in row))
 	concise_catalogue_out.write('\n')
 concise_catalogue_out.close()
