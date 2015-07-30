@@ -13,13 +13,13 @@ print 'catalogue_compare_alpha starting up...\n'
 
 cat_loc = '/home/bjones/Documents/IRDC_catalogues/'
 
-catalogue_name_A = 'new_70_cat_python.txt'
-headerlines_A = 2
-coord_cols_A = [5,6]
+catalogue_name_A = 'IRDC_l015_l055_temperature_mass_luminosity_run_70_350.dat'
+headerlines_A = 3
+coord_cols_A = [9,10]
 
-catalogue_name_B = 'IRDC_l015_l055_temperature_mass_luminosity_run_70_350.dat'
-headerlines_B = 3
-coord_cols_B = [9,10]
+catalogue_name_B = 'proto_cat_python.txt'
+headerlines_B = 2
+coord_cols_B = [1,2]
 
 if os.path.isdir(cat_loc) == False:
 	sys.exit('Catalogue directory not found.')
