@@ -58,6 +58,8 @@ wavelengths_required = [250,350]
 wavelengths_excluded = [160]
 reference_wavelength = 250
 
+print '\n' + '-'*15 + 'finding counterparts in all wavelengths' + '-'*15 + '\n'
+
 cat_loc = '/home/bjones/Documents/IRDC_catalogues/'
 output_loc = '/home/bjones/Desktop/'
 # catalogue names based on prefix + variable wavelength - can enter strings into
@@ -194,7 +196,7 @@ source_glons = np.zeros((total_wavelengths, total_sources))
 source_glats = np.zeros((total_wavelengths, total_sources))
 source_dists = np.zeros((total_wavelengths, total_sources))
 source_all_wl = np.zeros((total_wavelengths, total_sources))
-print 'searching for all catalogued candidates...'
+print 'Running initial association of counterparts...\n'
 
 # for all wavelengths required to be considered a candidate source
 for i,j in enumerate(wavelengths):
@@ -260,12 +262,12 @@ for x in range(total_wavelengths):
 	candidate_dists[wavelengths[x]] = source_dists[x, candidate_indices]
 
 count_candidates = len(candidate_indices)
-print 'Candidate count before duplicate source removal:  ' + str(count_candidates)
+print 'Candidate count before duplicate source removal:  ' + str(count_candidates) + '\n'
 
 # removal of multiple sources associated to one source in a longer wavelength
 # ------------------------------------------------------------------------------
 # runs on candidate subset, note: all intermediate wavelengths are ignored.
-print 'Removing multiple reference wavelength sources assigned to one source in longest wavelength...'
+print 'Removing multiple reference wavelength sources assigned to one source in longest wavelength...\n'
 # all source coord lists are now same length
 # UPDATE: no indicator array as all sources must have a counterpart to be here
 
@@ -326,7 +328,7 @@ for higher_source in comparison_higher.T:
 # save indices of candidates that also appear in the higher run
 matched_inds = list(set(matched_inds))
 # find this in terms of original reference index
-print 'Sources found from two merged runs :  ' + str(len(matched_inds))
+print 'Candiate set reduced to:  ' + str(len(matched_inds)) + '\n'
 
 # update candidates with new indices
 candidate_indices = candidate_indices[matched_inds]
@@ -339,7 +341,7 @@ count_candidates = len(candidate_indices)
 # removal of duplicate sources in output list
 # ------------------------------------------------------------------------------
 # uses new subset of candidates and compares to same wavelength
-print 'Removing duplicate reference sources...'
+print 'Removing duplicate sources...\n'
 for x in range(count_candidates):
 	temp_glon = np.empty(count_candidates)
 	temp_glat = np.empty(count_candidates)
@@ -364,7 +366,7 @@ for x in wavelengths:
 	candidate_glats[x] = candidate_glats[x][not_a_duplicate]
 	candidate_dists[x] = candidate_dists[x][not_a_duplicate]
 candidate_maps = [single_wl_maps[reference_wavelength][i] for i in candidate_indices]
-print 'Final number of sources found:  ' + str(count_candidates)
+print 'Final number of sources found:  ' + str(count_candidates) + '\n'
 
 # catalogue write
 # ------------------------------------------------------------------------------
@@ -372,7 +374,7 @@ print 'Final number of sources found:  ' + str(count_candidates)
 # version containing centroid distance information (1 row per source per band)
 
 # convert relevant source coords into RA and DEC (J200) for output
-print '\nWriting to catalogues... \n'
+print 'Writing catalogues... \n'
 candidate_ras = {}
 candidate_decs = {}
 for x in wavelengths_required:
@@ -433,3 +435,5 @@ for IRDC in unique_maps:
 			catalogue_out.write('\n')
 
 catalogue_out.close()
+
+print '-'*15 + 'find_counterparts_alpha finished!' + '-'*15 + '\n'
