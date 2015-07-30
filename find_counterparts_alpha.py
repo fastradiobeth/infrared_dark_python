@@ -54,9 +54,9 @@ from astropy import units as u
 # required parameters
 # ------------------------------------------------------------------------------
 wavelengths = [70,160,250,350]
-wavelengths_required = [70,250,350]
-wavelengths_excluded = [160]
-reference_wavelength = 250
+wavelengths_required = [70,160,250,350]
+wavelengths_excluded = []
+reference_wavelength = 160
 
 cat_loc = '/home/bjones/Documents/IRDC_catalogues/'
 output_loc = '/home/bjones/Desktop/'

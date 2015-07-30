@@ -72,7 +72,7 @@ not_found_catalogue_file = cat_loc +'not_found.dat'
 found_catalogue_file = cat_loc + 'found.dat'
 original_catalogue = open(catalogue_A, 'r')
 original_lines = original_catalogue.readlines()
-original_header = original_lines[0:headerlines_A-1]
+original_header = original_lines[0:headerlines_A]
 not_found_catalogue = open(not_found_catalogue_file, 'w')
 found_catalogue = open(found_catalogue_file, 'w')
 
@@ -80,10 +80,13 @@ found_catalogue = open(found_catalogue_file, 'w')
 adjusted_not_found_indices = [x+headerlines_A for x in not_found_indices]
 adjusted_found_indices = [x+headerlines_A for x in found_indices]
 
+
+not_found_lines = [line for index, line in enumerate(original_lines) if index in adjusted_not_found_indices]
 not_found_catalogue.write(''.join(original_header))
-not_found_catalogue.write(''.join(original_lines[adjusted_not_found_indices]))
+not_found_catalogue.write(''.join(not_found_lines))
+found_lines = [line for index, line in enumerate(original_lines) if index in adjusted_found_indices]
 found_catalogue.write(''.join(original_header))
-found_catalogue.write(''.join(original_lines[adjusted_found_indices]))
+found_catalogue.write(''.join(found_lines))
 
 not_found_catalogue.close()
 found_catalogue.close()
