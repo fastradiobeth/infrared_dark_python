@@ -5,7 +5,6 @@
 # Beth Jones
 # School of Physics and Astronomy | The University of Manchester
 # ******************************************************************************
-# MUCH DICTIONARY.  WOW. VERY PYTHON.
 # standalone code used for producing catalogues of objects found in multiple
 # wavelengths using catalogues of objects found in single wavelengths
 #

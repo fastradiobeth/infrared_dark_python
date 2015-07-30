@@ -11,6 +11,11 @@
 
 print 'catalogue_compare_alpha starting up...\n'
 
+import os
+import sys
+import numpy as np
+
+
 cat_loc = '/home/bjones/Documents/IRDC_catalogues/'
 
 catalogue_name_A = 'IRDC_l015_l055_temperature_mass_luminosity_run_70_350.dat'
