@@ -368,6 +368,9 @@ print 'Final number of sources found:  ' + str(count_candidates)
 
 # catalogue write
 # ------------------------------------------------------------------------------
+# prints a concise version of one source per row and a more descriptive 'full'
+# version containing centroid distance information (1 row per source per band)
+
 # convert relevant source coords into RA and DEC (J200) for output
 print '\nWriting to catalogues... \n'
 candidate_ras = {}
@@ -377,17 +380,44 @@ for x in wavelengths_required:
         source_coords = source_coords.transform_to('icrs')
         candidate_ras[x] = source_coords.ra.degree
         candidate_decs[x] = source_coords.dec.degree
-
 col_width = 15
+
+concise_catalogue_out_name = 'python_src_assoc_'
+for x in range(total_required):
+	concise_catalogue_out_name += str(wavelengths_required[x]) +'_'
+concise_catalogue_out_name += str(beam) + 'asec.dat'
+concise_catalogue_out_path = output_loc + catalogue_out_name
+concise_catalogue_out = open(concise_catalogue_out_path, 'w')
+concise_header = ['map_name']
+for x in range(total_required):
+	glon_head = str(wavelengths_required[x]) + ' glon'
+	concise_header.append(glon_head)
+	glat_head = str(wavelengths_required[x]) + ' glat'
+	concise_header.append(glat_head)
+concise_catalogue_out.write("".join(data.ljust(col_width) for data in concise_header))
+concise_catalogue_out.write('\n' + '-'*135 + '\n')
+
+for x in range(count_candidates):
+	row = [canidate_maps[x]]
+	for wl in wavelengths_required:
+		row.append("{0:.4f}".format(candidate_glons[wl][x]))
+		row.append("{0:.4f}".format(candidate_glats[wl][x]))
+	print "".join(data.ljust(col_width) for data in row)
+	concise_catalogue_out.write("".join(data.ljust(col_width) for data in row))
+	concise_catalogue_out.write('\n')
+concise_catalogue_out.close()
+
+
 catalogue_out_name = 'python_src_assoc_'
 for x in range(total_required):
 	catalogue_out_name += str(wavelengths_required[x]) +'_'
-catalogue_out_name += str(beam) + 'asec.dat'
+catalogue_out_name += str(beam) + 'asec_full.dat'
 catalogue_out_path = output_loc + catalogue_out_name
 catalogue_out = open(catalogue_out_path, 'w')
 header = ['map name','source', 'band [mu]', 'glon', 'glat', 'ra', 'dec', 'distance ["]']
 catalogue_out.write("".join(data.ljust(col_width) for data in header))
 catalogue_out.write('\n' + '-'*135 + '\n')
+
 
 unique_maps = list(unique_everseen(candidate_maps))
 for IRDC in unique_maps:
