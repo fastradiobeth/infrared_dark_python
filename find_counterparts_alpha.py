@@ -335,7 +335,6 @@ for x in wavelengths:
 	candidate_glats[x] = candidate_glats[x][matched_inds]
 	candidate_dists[x] = candidate_dists[x][matched_inds]
 count_candidates = len(candidate_indices)
-print 'Just checking that this number is the same: ' + str(count_candidates)
 
 # removal of duplicate sources in output list
 # ------------------------------------------------------------------------------
@@ -370,6 +369,7 @@ print 'Final number of sources found:  ' + str(count_candidates)
 # catalogue write
 # ------------------------------------------------------------------------------
 # convert relevant source coords into RA and DEC (J200) for output
+print '\nWriting to catalogues... \n'
 candidate_ras = {}
 candidate_decs = {}
 for x in wavelengths_required:
@@ -377,8 +377,6 @@ for x in wavelengths_required:
         source_coords = source_coords.transform_to('icrs')
         candidate_ras[x] = source_coords.ra.degree
         candidate_decs[x] = source_coords.dec.degree
-
-
 
 col_width = 15
 catalogue_out_name = 'python_src_assoc_'
@@ -402,7 +400,6 @@ for IRDC in unique_maps:
 		for wl in wavelengths_required:
 			# construct a row to write
 			row =[IRDC,str(number+1),str(wl),"{0:.4f}".format(candidate_glons[wl][index]), "{0:.4f}".format(candidate_glats[wl][index]),"{0:.4f}".format(candidate_ras[wl][index]), "{0:.4f}".format(candidate_decs[wl][index]), "{0:.2f}".format(candidate_dists[wl][index])]
-			print "".join(data.ljust(col_width) for data in row)
 			catalogue_out.write("".join(data.ljust(col_width) for data in row))
 			catalogue_out.write('\n')
 
