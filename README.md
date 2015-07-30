@@ -1,15 +1,28 @@
 # infrared_dark_python
 basic python code for use with catalogues of Hi-GAL IRDC sources
 
-PROTOSTELLAR CATALOGUES
+####160-QUIET CATALOGUES
+--------------------------------------------------------
+infrared_dark_python/find_counterparts_alpha.py outputs of sources detected in at least [250, 350] microns with no presence in 160 microns.
+
+1. python_src_assoc_250_350_18.0asec.dat and python_src_assoc_250_350_18.0asec_full.dat
+  - uses minimum required wavelength beam (18.0", 250 microns), reference wavelength 250 microns, and does not check for 70 micron sources.
+  - Contains 841 sources.
+
+2. python_src_assoc_70_250_350_10.2asec.dat and python_src_assoc_70_250_350_10.2asec_full.dat
+  - uses minimum required wavelength beam (10.2", 70 microns), reference wavelength 250 microns.
+  - Contains 30 sources.
+
+
+####PROTOSTELLAR CATALOGUES
 --------------------------------------------------------
 infrared_dark_python/find_counterparts_alpha.py protostellar catalogue has been compared to the Hyper catalogues of protostellar (70-350 presence) and starless (160-350 presence) sources and the following catalogues produced:
 
-1. python_src_assoc_70_160_250_350.dat
+1. python_src_assoc_70_160_250_350_10.2asec.dat
   - output from find_counterparts_alpha.py of all sources with counterparts found in all four wavelengths. glon and glat of each counterpart centroid are printed, with one row per source.
   - Contains 1200 sources.
       
-2. python_src_assoc_70_160_250_350_full.dat
+2. python_src_assoc_70_160_250_350_10.2asec_full.dat
   - output from find_counterparts_alpha.py of all sources with counterparts found in all four wavelengths. One row is used per wavelength band per source. Contains glon, glat, ra, dec and distance of source from reference wavelength centroid.
   - Contains 1200 sources.
       
