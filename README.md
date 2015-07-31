@@ -1,6 +1,10 @@
 # infrared_dark_python
 basic python code for use with catalogues of Hi-GAL IRDC sources
 
+######Folder of interesting sources coming soon... 
+
+Beth's favourite source is found at **infrared_dark_python/print_format_250_350_18.0asec/HGL28.087+0.067_160_quiet_printing_360.pdf**
+
 ####160-QUIET CATALOGUES
 --------------------------------------------------------
 infrared_dark_python/find_counterparts_alpha.py outputs of sources detected in at least [250, 350] microns with no presence in 160 microns.
