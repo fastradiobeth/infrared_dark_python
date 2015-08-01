@@ -1,0 +1,56 @@
+#### Interesting source details ####
+
+1. 'Misclassified' sources listed as starless by Hyper, but found as protostellar by find_counterparts which appear protostellar
+	- HGL24.964-0.173_protostellar_printing_17.pdf	(interesting 70 micron background with extinction)
+	- HGL35.839-0.228_protostellar_printing_43.pdf
+	- HGL45.505+0.022_protostellar_printing_51.pdf
+
+2. The only source found in 70, 250 and 350 microns which appears truly quiet at 160 microns
+	- HGL36.899-0.41_160_quiet_printing_18.pdf
+
+3. 160-quiet sources which highlight problems of classification by visual inspection
+	- HGL24.547-0.736_160_quiet_printing_3.pdf
+	- HGL16.386-0.212_160_quiet_printing_5.pdf
+	- HGL18.366-0.392_160_quiet_printing_49.pdf
+
+4. 160-quiet sources in which the 160 micron region shows a different shape
+	- HGL15.007+0.008_160_quiet_printing_0.pdf
+	- HGL23.296+0.055_160_quiet_printing_182.pdf (extinction at 70)
+
+5. Sources which appear quiet or quieter at 160 microns with extinction at 70
+	- HGL15.907-0.147_160_quiet_printing_3.pdf
+	- HGL17.082+0.442_160_quiet_printing_22.pdf
+	- HGL17.206+0.292_160_quiet_printing_26.pdf
+	- HGL18.762-0.029_160_quiet_printing_58.pdf
+	- HGL18.974-0.262_160_quiet_printing_85.pdf
+	- HGL19.281-0.387_160_quiet_printing_105.pdf
+	- HGL21.977+0.232_160_quiet_printing_126.pdf
+	- HGL22.31-0.628_160_quiet_printing_129.pdf
+	- HGL22.729+0.126_160_quiet_printing_155.pdf
+	- HGL23.321-0.078_160_quiet_printing_183.pdf
+	- HGL25.075+0.202_160_quiet_printing_262.pdf
+	- HGL25.383-0.303_160_quiet_printing_277.pdf
+	- HGL28.111-0.448_160_quiet_printing_362.pdf
+	- HGL28.275-0.163_160_quiet_printing_366.pdf
+	- HGL28.333+0.063_160_quiet_printing_373.pdf
+	- HGL30.314-0.137_160_quiet_printing_454.pdf
+	- HGL34.739-0.118_160_quiet_printing_541.pdf
+	- HGL36.671-0.131_160_quiet_printing_578.pdf
+	- HGL38.939-0.365_160_quiet_printing_604.pdf
+	- HGL38.939-0.365_160_quiet_printing_605.pdf
+	- HGL45.44-0.106_160_quiet_printing_665.pdf
+
+6. The only source found in 250 and 350 microns with extinction at both 160 and 70 microns
+	- HGL28.087+0.067_160_quiet_printing_360.pdf
+
+7. Sources which appear quiet(er) at 160 but do not show extinction at 70
+	- HGL16.941+0.458_160_quiet_printing_18.pdf
+	- HGL19.103-0.23_160_quiet_printing_96.pdf
+
+8. Sources that are apparently 160 quiet but appear bright
+	- HGL18.472-0.18_160_quiet_printing_50.pdf
+	- HGL19.242+0.071_160_quiet_printing_104.pdf
+	- HGL19.968-0.104_160_quiet_printing_118.pdf
+
+9. Source with interesting 350 to 250 to 160 changes
+	- HGL23.56+0.331_160_quiet_printing_194.pdf
