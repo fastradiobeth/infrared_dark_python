@@ -1,9 +1,23 @@
 # infrared_dark_python
 basic python code for use with catalogues of Hi-GAL IRDC sources
 
-######Folder of interesting sources coming soon... 
-
 Beth's favourite source is found at **infrared_dark_python/print_format_250_350_18.0asec/HGL28.087+0.067_160_quiet_printing_360.pdf**
+
+#### SOURCE IMAGES
+-------------------------------------------------------
+######Marker colours
+* 70 microns -  blue
+* 160 microns - green
+* 250 microns - red
+* 350 microns - black
+
+1. **160-quiet sources**
+  - The print format pdf files of all sources in **python_src_assoc_250_350_18.0asec.dat** are stored here, in the same order of appearance as the catalogue.
+  - Note: some sources do not fit within boundaries of assigned map and may not be visible. Source 663 is also missing due to an unresolved issue whilst formatting the FITS file.
+
+2. **interesting sources**
+  - This is the folder of sources found that fit various different subcategories within produced catalogues and suitably highlight differences betweeen objects found by the same find_counterparts_alpha run.
+  - Description of sources is contained within the subdirectory
 
 ####160-QUIET CATALOGUES
 --------------------------------------------------------
