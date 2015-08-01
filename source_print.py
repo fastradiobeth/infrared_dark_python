@@ -18,24 +18,22 @@ from astropy import units as u
 
 # select locations of catalogues and FITS files
 # ------------------------------------------------------------------------------
-cat_loc = '/home/bjones/Documents/IRDC_catalogues/'
+cat_loc = '/raid/scratch/bjones_IRDC/repos/infrared_dark_python/'
 cloud_loc = '/raid/scratch/bjones_IRDC/IRDCs/'
-cutout_loc = '/raid/scratch/bjones_IRDC/misclassified_cutouts/'
-output_loc = '/raid/scratch/bjones_IRDC/misclassified_print/'
+cutout_loc = '/raid/scratch/bjones_IRDC/repos/infrared_dark_python/cutsources_250_350_18.0asec/'
+output_loc = '/raid/scratch/bjones_IRDC/repos/infrared_dark_python/print_format_250_350_18.0asec/'
 
 # setup catalogue
-cat_name = 'protostellar_misclassified_sources.dat'
+cat_name = 'python_src_assoc_250_350_18.0asec.dat'
 new_cat = cat_loc + cat_name
 
 headerlines = 2
 map_col = [0]   # map names that match FITS files of IRDCs
-coord_wavelengths = [70,160,250,350]
-reference_wavelength = 160
+coord_wavelengths = [250,350]
+reference_wavelength = 250
 coord_cols = {
-    70:[1,2],
-    160:[3,4],
-    250:[5,6],
-    350:[7,8]
+    250:[1,2],
+    350:[3,4]
 }
 
 glat = {}
@@ -61,7 +59,7 @@ for w in coord_wavelengths:
 wavelengths = [70, 160, 250, 350, 500]  #Hi-GAL wavelengths
 
 for x in range(total_sources):
-    if x == 49:
+    if x == 663:
 	print ' skipping source 49'
     else:
 	cutout_names = []
