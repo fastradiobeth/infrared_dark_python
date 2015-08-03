@@ -39,19 +39,26 @@ infrared_dark_python/find_counterparts_alpha.py outputs of sources detected in a
 --------------------------------------------------------
 The sources in **python_src_assoc_250_350_18.0asec.dat** have sorted into 4 broad categories from visual inspection. Note that this sorting should not be taken as entirely accurate and is subjective to human judgement. Currently, the first 200 sources in the catalogue are used, corresponding to a Galactic longitude range of 15 < *l* < 23.7 degrees. 
 
-1. #####Category I: Appears quiet at 160
+#####Category I: Appears quiet at 160
   - Defined as showing no/very weak emission at 160 microns, and present in 250 and 350. 70 micron state is not specified. May also be dark at 160 microns.
   - Contains 70 sources (35%)
 
-2. #####Category II: Appears bright at 160
+#####Category II: Appears bright at 160
   - Shows emission at 160 microns that appears to be related to the 250 and 350 counterparts. 70 micron state is not specified.
   - Contains 52 sources (26%)
 
-3. #####Category III: Ambiguous at 160
+#####Category III: Ambiguous at 160
   - The emission at 160 microns may be signifiantly quieter but still visible, or may not be related to the 250 and 350 counterparts due to background or shape changes in the 160 emission. Subcategories of why the source is ambiguous will follow, along with any other properties noticed such as extinction in 70 microns.
   - Contains 38 sources (19%)
 
-4. #####Category IV: Unclassified
+######Subcategories
+    i. Appears bright at 70 (0 sources)
+    ii. Quiet at 70 (27 sources)
+    iii. Extinction at 70 (7 sources)
+    iv. 160 emission present but different shape (1 source)
+    v. Ambiguous at 70 (3 sources)
+
+#####Category IV: Unclassified
   - Some sources are very difficult to classify due to backgrounds, bright sources nearby etc. Some sources listed in a given map may also be outside the border, and therefore are not actually visible in the map. 
   - Contains 40 sources (20%)
 
