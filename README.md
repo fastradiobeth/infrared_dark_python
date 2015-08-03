@@ -12,7 +12,7 @@ Beth's favourite source is found at **infrared_dark_python/print_format_250_350_
 * 350 microns - black
 
 #####1. **160-quiet sources**
-  - The print format pdf files of all sources in **python_src_assoc_250_350_18.0asec.dat** are stored here, in the same order of appearance as the catalogue.
+  - The print format pdf files of all sources in **python_src_assoc_250_350_18.0asec.dat** are stored here, in the same order of appearance as the catalogue. The source images can be found in categories in 160_quiet_categories.
   - Note: some sources do not fit within boundaries of assigned map and may not be visible. Source 663 is also missing due to an unresolved issue whilst formatting the FITS file.
 
 #####3. **'misclassified' protostellar sources**
@@ -29,10 +29,34 @@ infrared_dark_python/find_counterparts_alpha.py outputs of sources detected in a
 1. **python_src_assoc_250_350_18.0asec.dat** and **python_src_assoc_250_350_18.0asec_full.dat**
   - uses minimum required wavelength beam (18.0", 250 microns), reference wavelength 250 microns, and does not check for 70 micron sources.
   - Contains 841 sources.
+  - Sources in this catalogue are used when sorting 160-quiet sources into categories
 
 2. **python_src_assoc_70_250_350_10.2asec.dat** and **python_src_assoc_70_250_350_10.2asec_full.dat**
   - uses minimum required wavelength beam (10.2", 70 microns), reference wavelength 250 microns.
   - Contains 30 sources.
+
+####160-QUIET CATEGORIES
+--------------------------------------------------------
+The sources in **python_src_assoc_250_350_18.0asec.dat** have sorted into 4 broad categories from visual inspection. Note that this sorting should not be taken as entirely accurate and is subjective to human judgement. Currently, the first 200 sources in the catalogue are used, corresponding to a Galactic longitude range of 15 < *l* < 23.7 degrees. 
+
+1. #####Category I: Appears quiet at 160
+  - Defined as showing no/very weak emission at 160 microns, and present in 250 and 350. 70 micron state is not specified. May also be dark at 160 microns.
+  - Contains 70 sources (35%)
+
+2. #####Category II: Appears bright at 160
+  - Shows emission at 160 microns that appears to be related to the 250 and 350 counterparts. 70 micron state is not specified.
+  - Contains 52 sources (26%)
+
+3. #####Category III: Ambiguous at 160
+  - The emission at 160 microns may be signifiantly quieter but still visible, or may not be related to the 250 and 350 counterparts due to background or shape changes in the 160 emission. Subcategories of why the source is ambiguous will follow, along with any other properties noticed such as extinction in 70 microns.
+  - Contains 38 sources (19%)
+
+4. #####Category IV: Unclassified
+  - Some sources are very difficult to classify due to backgrounds, bright sources nearby etc. Some sources listed in a given map may also be outside the border, and therefore are not actually visible in the map. 
+  - Contains 40 sources (20%)
+
+
+Catelogues are within the **infrared_dark_python/160_quiet_categories** directory, with subdirectories containing the pdf images created by **source_print.py** in each category. More sources and subcategories coming soon...
 
 
 ####PROTOSTELLAR CATALOGUES
