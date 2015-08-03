@@ -27,10 +27,10 @@ from astropy import units as u
 # locations of catalogues, IRDCs and output files
 cat_loc = '/home/bjones/Documents/IRDC_catalogues/'
 cloud_loc = '/raid/scratch/bjones_IRDC/IRDCs/'
-output_loc = '/raid/scratch/bjones_IRDC/misclassified_cutouts/'
+output_loc = '/raid/scratch/bjones_IRDC/python_src_assoc_250_350_18.0asec_cutouts/'
 
 # catalogue names and columns of cutout_cat that contain map and coords
-cutout_cat_name = 'protostellar_misclassified_sources.dat'
+cutout_cat_name = 'python_src_assoc_250_350_18.0asec.dat'
 cutout_headerlines = 2
 map_col =[0]
 coord_cols = [3,4]

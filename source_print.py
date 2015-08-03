@@ -20,8 +20,8 @@ from astropy import units as u
 # ------------------------------------------------------------------------------
 cat_loc = '/raid/scratch/bjones_IRDC/repos/infrared_dark_python/'
 cloud_loc = '/raid/scratch/bjones_IRDC/IRDCs/'
-cutout_loc = '/raid/scratch/bjones_IRDC/repos/infrared_dark_python/cutsources_250_350_18.0asec/'
-output_loc = '/raid/scratch/bjones_IRDC/repos/infrared_dark_python/print_format_250_350_18.0asec/'
+cutout_loc = '/raid/scratch/bjones_IRDC/python_src_assoc_250_350_18.0asec_cutouts/'
+output_loc = '/raid/scratch/bjones_IRDC/repos/infrared_dark_python/print_format_250_350_18.0asec/png/'
 
 # setup catalogue
 cat_name = 'python_src_assoc_250_350_18.0asec.dat'
