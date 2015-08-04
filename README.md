@@ -43,6 +43,11 @@ The sources in **python_src_assoc_250_350_18.0asec.dat** have sorted into 4 broa
   - Defined as showing no/very weak emission at 160 microns, and present in 250 and 350. 70 micron state is not specified. May also be dark at 160 microns.
   - Contains 70 sources (35%)
 
+######Subcategories
+    i. Appears as extinction at 70 (35 sources)
+    ii. Appears as extinction at both 70 and 160 (0 sources)
+    iii. Quiet at 70 (35 sources)
+
 #####Category II: Appears bright at 160
   - Shows emission at 160 microns that appears to be related to the 250 and 350 counterparts. 70 micron state is not specified.
   - Contains 52 sources (26%)
