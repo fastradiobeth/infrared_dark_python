@@ -52,6 +52,10 @@ The sources in **python_src_assoc_250_350_18.0asec.dat** have sorted into 4 broa
   - Shows emission at 160 microns that appears to be related to the 250 and 350 counterparts. 70 micron state is not specified.
   - Contains 52 sources (26%)
 
+######Subcategories
+    i. Appears brigh at 70 [protostellar] (12 sources)
+    ii. Appears quiet or dark at 70 microns [starless] (40 sources)
+
 #####Category III: Ambiguous at 160
   - The emission at 160 microns may be signifiantly quieter but still visible, or may not be related to the 250 and 350 counterparts due to background or shape changes in the 160 emission. Subcategories of why the source is ambiguous will follow, along with any other properties noticed such as extinction in 70 microns.
   - Contains 38 sources (19%)
