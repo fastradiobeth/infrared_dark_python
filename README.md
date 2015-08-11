@@ -41,7 +41,7 @@ The sources in **python_src_assoc_250_350_18.0asec.dat** have sorted into 4 broa
 
 #####Category I: Appears quiet at 160
   - Defined as showing no/very weak emission at 160 microns, and present in 250 and 350. 70 micron state is not specified. May also be dark at 160 microns.
-  - Contains 342 sources (40.7%)
+  - Contains 354 sources (42.1%)
 
 ######Subcategories (first 200 only)
     i. Appears as extinction at 70 (35 sources)
@@ -58,7 +58,7 @@ The sources in **python_src_assoc_250_350_18.0asec.dat** have sorted into 4 broa
 
 #####Category III: Ambiguous at 160
   - The emission at 160 microns may be signifiantly quieter but still visible, or may not be related to the 250 and 350 counterparts due to background or shape changes in the 160 emission. Subcategories of why the source is ambiguous will follow, along with any other properties noticed such as extinction in 70 microns.
-  - Contains 118 sources (14.0)
+  - Contains 119 sources (14.1)
 
 ######Subcategories (first 200 only)
     i. Appears bright at 70 (0 sources)
@@ -68,9 +68,12 @@ The sources in **python_src_assoc_250_350_18.0asec.dat** have sorted into 4 broa
     v. Ambiguous at 70 (3 sources)
 
 #####Category IV: Unclassified
-  - Some sources are very difficult to classify due to backgrounds, bright sources nearby etc. Some sources listed in a given map may also be outside the border, and therefore are not actually visible in the map. 
-  - Contains 147 sources (17.5%)
+  - Some sources are very difficult to classify due to other bright features nearby. Some sources listed in a given map may also be outside the border, and therefore are not actually visible in the map. These are the two subcategories below.
+  - Contains 134 sources (15.9%)
 
+######Subcategories (full set)
+    i. Map problems (25 sources) - 3.0% of entire set
+    ii. Other bright feature(s) nearby (109 sources) - 13.0% of entire set
 
 Catelogues are within the **infrared_dark_python/160_quiet_categories** directory, with subdirectories containing the pdf images created by **source_print.py** in each category. More sources and subcategories coming soon...
 
