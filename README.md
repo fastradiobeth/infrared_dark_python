@@ -37,30 +37,30 @@ infrared_dark_python/find_counterparts_alpha.py outputs of sources detected in a
 
 ####160-QUIET CATEGORIES
 --------------------------------------------------------
-The sources in **python_src_assoc_250_350_18.0asec.dat** have sorted into 4 broad categories from visual inspection. Note that this sorting should not be taken as entirely accurate and is subjective to human judgement. Currently, the first 200 sources in the catalogue are used, corresponding to a Galactic longitude range of 15 < *l* < 23.7 degrees. 
+The sources in **python_src_assoc_250_350_18.0asec.dat** have sorted into 4 broad categories from visual inspection. Note that this sorting should not be taken as entirely accurate and is subjective to human judgement. The entire set of Galactic Longitude 15 < l < 55 has been sorted into the main categories, with the first 200 sorted into subcategories.
 
 #####Category I: Appears quiet at 160
   - Defined as showing no/very weak emission at 160 microns, and present in 250 and 350. 70 micron state is not specified. May also be dark at 160 microns.
-  - Contains 70 sources (35%)
+  - Contains 342 sources (40.7%)
 
-######Subcategories
+######Subcategories (first 200 only)
     i. Appears as extinction at 70 (35 sources)
     ii. Appears as extinction at both 70 and 160 (0 sources)
     iii. Quiet at 70 (35 sources)
 
 #####Category II: Appears bright at 160
   - Shows emission at 160 microns that appears to be related to the 250 and 350 counterparts. 70 micron state is not specified.
-  - Contains 52 sources (26%)
+  - Contains 234 sources (27.8%)
 
-######Subcategories
+######Subcategories (first 200 only)
     i. Appears brigh at 70 [protostellar] (12 sources)
     ii. Appears quiet or dark at 70 microns [starless] (40 sources)
 
 #####Category III: Ambiguous at 160
   - The emission at 160 microns may be signifiantly quieter but still visible, or may not be related to the 250 and 350 counterparts due to background or shape changes in the 160 emission. Subcategories of why the source is ambiguous will follow, along with any other properties noticed such as extinction in 70 microns.
-  - Contains 38 sources (19%)
+  - Contains 118 sources (14.0)
 
-######Subcategories
+######Subcategories (first 200 only)
     i. Appears bright at 70 (0 sources)
     ii. Quiet at 70 (27 sources)
     iii. Extinction at 70 (7 sources)
@@ -69,7 +69,7 @@ The sources in **python_src_assoc_250_350_18.0asec.dat** have sorted into 4 broa
 
 #####Category IV: Unclassified
   - Some sources are very difficult to classify due to backgrounds, bright sources nearby etc. Some sources listed in a given map may also be outside the border, and therefore are not actually visible in the map. 
-  - Contains 40 sources (20%)
+  - Contains 147 sources (17.5%)
 
 
 Catelogues are within the **infrared_dark_python/160_quiet_categories** directory, with subdirectories containing the pdf images created by **source_print.py** in each category. More sources and subcategories coming soon...
