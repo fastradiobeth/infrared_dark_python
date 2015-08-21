@@ -39,6 +39,8 @@ infrared_dark_python/find_counterparts_alpha.py outputs of sources detected in a
 --------------------------------------------------------
 The sources in **python_src_assoc_250_350_18.0asec.dat** have sorted into 4 broad categories from visual inspection. Note that this sorting should not be taken as entirely accurate and is subjective to human judgement. The entire set of Galactic Longitude 15 < l < 55 has been sorted into the main categories, with the first 200 sorted into subcategories.
 
+The longitude distributions of the 4 different categories are shown in **longitude_IRDP_categories** and **longitude_IRDP_categories_stacked**, located in **plots/**. The longitude distribution of the 160-quiet set of all 841 sources is shown alongside the distributions of the *Hyper* starless and protostellar sets in **longitude_hyper_vs_IRDP_10bins**.
+
 #####Category I: Appears quiet at 160
   - Defined as showing no/very weak emission at 160 microns, and present in 250 and 350. 70 micron state is not specified. May also be dark at 160 microns.
   - Contains 358 sources (42.6%)
@@ -50,6 +52,7 @@ The sources in **python_src_assoc_250_350_18.0asec.dat** have sorted into 4 broa
 
 #####Category II: Appears bright at 160
   - Shows emission at 160 microns that appears to be related to the 250 and 350 counterparts. 70 micron state is not specified.
+  - Comparison plots between the Hyper and IRDP protostellar and starless data sets are located in **plots/**
   - Contains 230 sources (27.3%)
 
 ######Subcategories (full set)
