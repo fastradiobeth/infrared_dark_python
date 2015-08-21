@@ -1,5 +1,5 @@
 # infrared_dark_python
-basic python code for use with catalogues of Hi-GAL IRDC sources
+basic python code and outputs for use with catalogues of Hi-GAL IRDC sources
 
 Beth's favourite source is found at **infrared_dark_python/print_format_250_350_18.0asec/HGL28.087+0.067_160_quiet_printing_360.pdf**
 
@@ -16,7 +16,7 @@ Beth's favourite source is found at **infrared_dark_python/print_format_250_350_
   - Note: some sources do not fit within boundaries of assigned map and may not be visible. Source 663 is also missing due to an unresolved issue whilst formatting the FITS file.
 
 #####3. **'misclassified' protostellar sources**
-  - print format images of the 65 sources found protostellar by find_counterparts but appear in the starless Hyper catalogue
+  - print format images of the 65 sources found protostellar by find_counterparts but appear in the starless Hyper catalogue are in **protostellar_comparison/misclassified_print** 
 
 #####2. **interesting sources**
   - This is the folder of sources found that fit various different subcategories within produced catalogues and suitably highlight differences betweeen objects found by the same find_counterparts_alpha run.
@@ -81,6 +81,7 @@ Catelogues are within the **infrared_dark_python/160_quiet_categories** director
 
 ####PROTOSTELLAR CATALOGUES
 --------------------------------------------------------
+all outputs related for this section are located in **infrared_dark_python/protostellar_comparison/**
 infrared_dark_python/find_counterparts_alpha.py protostellar catalogue has been compared to the Hyper catalogues of protostellar (70-350 presence) and starless (160-350 presence) sources and the following catalogues produced:
 
 1. **python_src_assoc_70_160_250_350_10.2asec.dat**
