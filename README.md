@@ -42,13 +42,12 @@ The sources in **python_src_assoc_250_350_18.0asec.dat** have sorted into 4 broa
 The longitude distributions of the 4 different categories are shown in **longitude_IRDP_categories** and **longitude_IRDP_categories_stacked**, located in **plots/**. The longitude distribution of the 160-quiet set of all 841 sources is shown alongside the distributions of the *Hyper* starless and protostellar sets in **longitude_hyper_vs_IRDP_10bins**.
 
 #####Category I: Appears quiet at 160
-  - Defined as showing no/very weak emission at 160 microns, and present in 250 and 350. 70 micron state is not specified. May also be dark at 160 microns.
+  - Defined as showing no/very weak emission at 160 microns, and present in 250 and 350. All sources showed no bright features at 70 microns. The subcategories specify whether the source is quiet or appears as a similarly shaped dark feature at 70 microns. 
   - Contains 358 sources (42.6%)
 
-######Subcategories (first 200 only)
-    i. Appears as extinction at 70 (35 sources)
-    ii. Appears as extinction at both 70 and 160 (0 sources)
-    iii. Quiet at 70 (35 sources)
+######Subcategories (full set)
+    i. Dark at 70 (86 sources)
+    ii. Quiet at 70 (272 sources)
 
 #####Category II: Appears bright at 160
   - Shows emission at 160 microns that appears to be related to the 250 and 350 counterparts. 70 micron state is not specified.
@@ -61,15 +60,8 @@ The longitude distributions of the 4 different categories are shown in **longitu
     iii. Ambiguous at 70 (21 sources)
 
 #####Category III: Ambiguous at 160
-  - The emission at 160 microns may be signifiantly quieter but still visible, or may not be related to the 250 and 350 counterparts due to background or shape changes in the 160 emission. Subcategories of why the source is ambiguous will follow, along with any other properties noticed such as extinction in 70 microns.
-  - Contains 119 sources (14.1)
-
-######Subcategories (first 200 only)
-    i. Appears bright at 70 (0 sources)
-    ii. Quiet at 70 (27 sources)
-    iii. Extinction at 70 (7 sources)
-    iv. 160 emission present but different shape (1 source)
-    v. Ambiguous at 70 (3 sources)
+  - The source may appear 'quieter' but still visible at 160 microns, or it may not be clear whether the 160 micron emission is related to the clump, leading to ambiguity in whether a source is quiet at 160. 
+  - Contains 119 sources (14.1%)
 
 #####Category IV: Unclassified
   - Some sources are very difficult to classify due to other bright features nearby. Some sources listed in a given map may also be outside the border, and therefore are not actually visible in the map. These are the two subcategories below.
@@ -81,6 +73,7 @@ The longitude distributions of the 4 different categories are shown in **longitu
 
 Catelogues are within the **infrared_dark_python/160_quiet_categories** directory, with subdirectories containing the pdf images created by **source_print.py** in each category. More sources and subcategories coming soon...
 
+*Note that 'similarly shaped' implies that this sorting should be taken as an estimate rather than an absolute. 
 
 ####PROTOSTELLAR CATALOGUES
 --------------------------------------------------------
