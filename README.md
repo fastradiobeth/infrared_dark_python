@@ -42,7 +42,7 @@ The sources in **python_src_assoc_250_350_18.0asec.dat** have sorted into 4 broa
 The longitude distributions of the 4 different categories are shown in **longitude_IRDP_categories** and **longitude_IRDP_categories_stacked**, located in **plots/**. The longitude distribution of the 160-quiet set of all 841 sources is shown alongside the distributions of the *Hyper* starless and protostellar sets in **longitude_hyper_vs_IRDP_10bins**.
 
 #####Category I: Appears quiet at 160
-  - Defined as showing no/very weak emission at 160 microns, and present in 250 and 350. All sources showed no bright features at 70 microns. The subcategories specify whether the source is quiet or appears as a similarly shaped dark feature at 70 microns. 
+  - Defined as showing no/very weak emission at 160 microns, and present in 250 and 350. All sources showed no bright features at 70 microns. The subcategories specify whether the source is quiet or appears as a similarly shaped* dark feature at 70 microns. 
   - Contains 358 sources (42.6%)
 
 ######Subcategories (full set)
