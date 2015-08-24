@@ -1,5 +1,8 @@
 # infrared_dark_python
-basic python code and outputs for use with catalogues of Hi-GAL IRDC sources
+basic python code and outputs for use with catalogues of Hi-GAL IRDC sources.
+FITS cutouts of images have not been uploaded due to directory restrictions.
+
+Some (~5) pdf image files may be misplaced or missing due to rearrangements between categories. This will be ammended shortly.
 
 Beth's favourite source is found at **infrared_dark_python/print_format_250_350_18.0asec/HGL28.087+0.067_160_quiet_printing_360.pdf**
 
@@ -37,7 +40,7 @@ infrared_dark_python/find_counterparts_alpha.py outputs of sources detected in a
 
 ####160-QUIET CATEGORIES
 --------------------------------------------------------
-The sources in **python_src_assoc_250_350_18.0asec.dat** have sorted into 4 broad categories from visual inspection. Note that this sorting should not be taken as entirely accurate and is subjective to human judgement. The entire set of Galactic Longitude 15 < l < 55 has been sorted into the main categories, with the first 200 sorted into subcategories.
+The sources in **python_src_assoc_250_350_18.0asec.dat** have sorted into 4 broad categories from visual inspection. Note that this sorting should not be taken as entirely accurate and is sensitive to human judgement. The entire set of Galactic Longitude 15 < l < 55 has been sorted into the main categories.
 
 The longitude distributions of the 4 different categories are shown in **longitude_IRDP_categories** and **longitude_IRDP_categories_stacked**, located in **plots/**. The longitude distribution of the 160-quiet set of all 841 sources is shown alongside the distributions of the *Hyper* starless and protostellar sets in **longitude_hyper_vs_IRDP_10bins**.
 
@@ -73,7 +76,7 @@ The longitude distributions of the 4 different categories are shown in **longitu
 
 Catelogues are within the **infrared_dark_python/160_quiet_categories** directory, with subdirectories containing the pdf images created by **source_print.py** in each category. More sources and subcategories coming soon...
 
-*Note that 'similarly shaped' implies that this sorting should be taken as an estimate rather than an absolute. 
+*Note that 'similarly shaped' implies that this sorting should be taken as an estimate rather than an absolute.
 
 ####PROTOSTELLAR CATALOGUES
 --------------------------------------------------------
