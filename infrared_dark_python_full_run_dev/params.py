@@ -11,7 +11,7 @@
 survey_code = 0
 
 # survey wavelengths to use
-wavelengths = [160,250,350] # all wavelengths to be used
+wavelengths = [160,250,350]
 wavelengths_required = [250,350]
 wavelengths_excluded = [160]
 reference_wavelength = 250
