@@ -4,19 +4,9 @@
 # by filtering a single wavelength catalogue to remove duplicate entries and/or
 # sources that are too close to be considered as separate objects
 # ******************************************************************************
-
-# development version: final part of find_counterparts_alpha used as skeleton
+# TODO: could make into command line module using __name__ and __main__, and print to screen or sth
 # can be applied to other wavelengths as well as reference if necessary
 
-# input: reference map names, reference glat and glon, same_wl_beam
-# output: reference map names, reference glat and glon with duplicates removed
-# also needed: angular separation function
-# TODO: function use- can import to main and use in all following scripts or import to each individual?
-# TODO: run from main as function
-
-# removal of duplicate sources in output list
-# ------------------------------------------------------------------------------
-# uses new subset of candidates and compares to same wavelength
 import coord_tools
 import numpy as np
 

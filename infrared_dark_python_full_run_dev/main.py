@@ -3,7 +3,7 @@
 # much development version
 # very unprepare
 # wow
-# such broken variable
+# such module
 # ******************************************************************************
 # script for running through proccess of associating sources found in single
 # wavelengths to sources in other wavelengths and producing FITS cutouts
@@ -22,7 +22,7 @@ import numpy as np # checked
 
 # Beth's modules
 import coord_tools # conversions between systems and angular separations
-import find_reference_sources
+import find_reference_sources, find_counterparts
 
 # essential parameters
 # ------------------------------------------------------------------------------
@@ -102,26 +102,19 @@ total_sources = len(single_wl_maps[reference_wavelength])
 
 # filter reference wavelength list subject according to duplicate_filter_type
 # ------------------------------------------------------------------------------
-# send: reference_wavelength map names, coords to find_reference_sources
-# return: ammended reference wavelength map names, coords in same format
 # NOTE: do other_wavelengths require filtering too?
-
 
 single_wl_maps[reference_wavelength], glon[reference_wavelength], glat[reference_wavelength] = find_reference_sources.duplicate_filter(single_wl_maps[reference_wavelength], glon[reference_wavelength], glat[reference_wavelength], same_wl_beam)
 
 
-
-########################
-## WORKING UP TO HERE ##
-########################
-
-
 # find counterparts in specified wavelengths
 # ------------------------------------------------------------------------------
-# send ammended reference_wavelength data with other wavelengths to find_counterparts
-# return: coords, distances in each wavelength with reference_wavelength map name
-# for all sources with a counterpart in all wavelengths_required and no
+# find all sources with a counterpart in all wavelengths_required and no
 # counterpart in wavelengths_excluded
+
+candidate_maps, candidate_glons, candidate_glats, candidate_dists = find_counterparts.find_counterparts(single_wl_maps, glon, glat, wavelengths, wavelengths_required, wavelengths_excluded, reference_wavelength, beam)
+
+### TESTING: 160 quiet catalogue reproduction. Gives 851 candidates here.
 
 # remove sources with multiple higher resolution sources assigned to one
 # lower resolution sources

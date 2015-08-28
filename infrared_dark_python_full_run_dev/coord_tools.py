@@ -1,7 +1,8 @@
 # coord_tools.py
 # ******************************************************************************
 # various tools to allow for comparison between catalogues
-# requires numpy, astropy.coordinates.SkyCoord, astropy.units
+# requires numpy, astropy
+
 import numpy as np
 from astropy.coordinates import SkyCoord
 from astropy import units as u

@@ -24,7 +24,8 @@ output_loc = '/home/beth/Desktop/' # output location of cutouts
 cloud_loc = '/raid/scratch/bjones_IRDC/IRDCs/' # IRDC FITS files location
 
 # MOVE TO CUTOUT SCRIPT
-output_loc_cutouts = '/raid/scratch/bjones_IRDC/python_src_assoc_250_350_18.0asec_cutouts/' # TODO: need to make subdirectory in output_loc to store cutouts
+ # TODO: need to make subdirectory in output_loc to store cutouts
+output_loc_cutouts = '/raid/scratch/bjones_IRDC/python_src_assoc_250_350_18.0asec_cutouts/'
 
 # single wavelength catalogue setup
 # ------------------------------------------------------------------------------
