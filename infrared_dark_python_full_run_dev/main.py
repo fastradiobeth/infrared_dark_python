@@ -8,24 +8,28 @@
 # script for running through proccess of associating sources found in single
 # wavelengths to sources in other wavelengths and producing FITS cutouts
 
-# TODO: not all of these will be necessary, check
-import os
-import sys
+# packages
+# ------------------------------------------------------------------------------
+# TODO: not all of these will be necessary, check + write documentation on packages
+import os # necessary for dir checks
+import sys # necessary for sys.exit
 import glob
-import re
+import re # not sure what this is
 import math
-import numpy as np
-import montage_wrapper as montage
-from astropy.coordinates import SkyCoord
-from astropy.coordinates import FK5
-from astropy import units as u
+import numpy as np # necessary for data import
+#import montage_wrapper as montage   # problems with ALL packages below here (breadstick only)- TODO: check versions of packages against p11
+from astropy.coordinates import SkyCoord # necessary for ra and dec coord system input
+from astropy.coordinates import FK5 # unsure if necessary, or if icrs can replace
+from astropy import units as u # necessary.
 
+# essential parameters
+# ------------------------------------------------------------------------------
 # import settings from params.py
 # -- TODO: may want to consider only importing relevant variables for given settings
-# ---- definitely want to do this
-from params import *
+from params import survey_code, wavelengths, wavelengths_excluded, wavelengths_required, duplicate_filter_type, separation_type, single_wl_cats, map_col, coord_cols, headerlines, coord_type
 
-# beam selection for counterpart association and duplicate filters
+
+# beam/separation selection
 # ------------------------------------------------------------------------------
 def wavelength_to_beam(wavelength, survey_code):
     from survey_params import surveys
@@ -34,25 +38,26 @@ def wavelength_to_beam(wavelength, survey_code):
 
 if separation_type == 1:
     # send to survey params to get beam
+    from params import beam_to_use
 	beam = wavelength_to_beam(beam_to_use, survey_code)
 elif separation_type == 2:
 	# this variable is not a survey param
-    beam = fixed_beam
+    from params import fixed_beam as beam
 else:
-    # send to survey params as for case 1 and find min here.
+    # use survey_params to select minimum beam
 	total_required = len(wavelengths_required)
 	beams = np.empty(total_required)
 	for x in range(total_required):    # TODO: for loop probably unecessary, test
 		beams[x] = wavelength_to_beam(wavelengths_required[x], survey_code)
 	min_beam = np.amin(beams)
-	print 'minimum beam: ' + str(min_beam)
 	beam = min_beam
 
-# duplicate filter type
+# duplicate filter type for find_reference_sources
 if duplicate_filter_type == 1:
-	same_wl_beam = wavelength_to_beam(filter_beam, survey_code)
+    from params import filter_beam
+    same_wl_beam = wavelength_to_beam(filter_beam, survey_code)
 elif duplicate_filter_type == 2:
-	same_wl_beam = fixed_filter
+    from params import fixed_filter as same_wl_beam
 elif duplicate_filter_type == 3:
 	same_wl_beam = beam
 else:
@@ -61,10 +66,44 @@ else:
 
 # check for directories and import single wl catalogues
 # ------------------------------------------------------------------------------
+if os.path.isdir(cat_loc) == False:
+	sys.exit('Catalogue directory not found.')
+if os.path.isdir(output_loc) == False:
+	sys.exit('Output directory not found.')
+# TODO: check cloud locations and created cutout directory when running cutout script
+# TODO: check for single_wl_cat existence
+
+total_wavelengths = len(wavelengths)
+total_required = len(wavelengths_required)
+
+single_wl_maps ={}
+dt = np.dtype('f8') # double precision used
+glat = {}
+glon = {}
+if coord_type == 1:
+	ra = {}
+	dec ={}
+
+for x in wavelengths:
+    #TODO: check for any errors when reading in files
+	single_wl_maps[x] = (np.loadtxt(single_wl_cats[x], skiprows=headerlines, usecols=map_col, dtype=np.str)).tolist()
+	if coord_type == 0:
+		glon[x], glat[x] = np.loadtxt(single_wl_cats[x], skiprows=headerlines, usecols=coord_cols, unpack=True, dtype=dt)
+	elif coord_type == 1: # this is unacceptable, make them glat and glon
+		ra[x], dec[x] = np.loadtxt(single_wl_cats[x], skiprows=headerlines, usecols=coord_cols, unpack=True, dtype=dt)
+		source_coords = SkyCoord(SkyCoord(ra[x]*u.degree, dec[x]*u.degree, frame='icrs'))
+		source_coords = source_coords.transform_to('galactic')
+		glon[x] = source_coords.l.degree
+		glat[x] = source_coords.b.degree
+	else:
+		sys.exit('Unknown input coordinate type, quitting...')
+total_sources = len(single_wl_maps[reference_wavelength])
+print 'Total reference wavelength sources:  ' + str(total_sources)
+
 
 # filter reference wavelength list subject according to duplicate_filter_type
 # ------------------------------------------------------------------------------
-# send reference_wavelength map names, coords to find_reference_sources
+# send: reference_wavelength map names, coords to find_reference_sources
 # return: ammended reference wavelength map names, coords in same format
 # NOTE: do other_wavelengths require filtering too?
 
