@@ -7,39 +7,42 @@
 # ******************************************************************************
 # script for running through proccess of associating sources found in single
 # wavelengths to sources in other wavelengths and producing FITS cutouts
+# TODO: sort out the indentation inconsistency as a result of swapping from Debian
+# to Scientific Linux
 
 # packages
 # ------------------------------------------------------------------------------
 # TODO: not all of these will be necessary, check + write documentation on packages
-import os # necessary for dir checks
-import sys # necessary for sys.exit
+import os # checked
+import sys # checked
 import glob
 import re # not sure what this is
-import math
-import numpy as np # necessary for data import
-#import montage_wrapper as montage   # problems with ALL packages below here (breadstick only)- TODO: check versions of packages against p11
-from astropy.coordinates import SkyCoord # necessary for ra and dec coord system input
-from astropy.coordinates import FK5 # unsure if necessary, or if icrs can replace
-from astropy import units as u # necessary.
+import numpy as np # checked
+#import montage_wrapper as montage   # problems with this (breadstick and almap11) - TODO: check versions of packages and $PATH in both cases
+
+# Beth's modules
+import coord_tools # conversions between systems and angular separations
+import find_reference_sources
 
 # essential parameters
 # ------------------------------------------------------------------------------
 # import settings from params.py
 # -- TODO: may want to consider only importing relevant variables for given settings
-from params import survey_code, wavelengths, wavelengths_excluded, wavelengths_required, duplicate_filter_type, separation_type, single_wl_cats, map_col, coord_cols, headerlines, coord_type
+# NOTE: NAMESPACES.
+from params import survey_code, wavelengths, wavelengths_excluded, wavelengths_required, reference_wavelength, duplicate_filter_type, separation_type, single_wl_cats, map_col, coord_cols, headerlines, coord_type, cat_loc, output_loc
 
 
 # beam/separation selection
 # ------------------------------------------------------------------------------
 def wavelength_to_beam(wavelength, survey_code):
-    from survey_params import surveys
-    survey_beams = surveys[survey_code]
+    import survey_params
+    survey_beams = survey_params.surveys[survey_code]
     return survey_beams.get(wavelength)
 
 if separation_type == 1:
     # send to survey params to get beam
     from params import beam_to_use
-	beam = wavelength_to_beam(beam_to_use, survey_code)
+    beam = wavelength_to_beam(beam_to_use, survey_code)
 elif separation_type == 2:
 	# this variable is not a survey param
     from params import fixed_beam as beam
@@ -71,10 +74,7 @@ if os.path.isdir(cat_loc) == False:
 if os.path.isdir(output_loc) == False:
 	sys.exit('Output directory not found.')
 # TODO: check cloud locations and created cutout directory when running cutout script
-# TODO: check for single_wl_cat existence
-
-total_wavelengths = len(wavelengths)
-total_required = len(wavelengths_required)
+# TODO: check for single_wl_cat existence and exception this
 
 single_wl_maps ={}
 dt = np.dtype('f8') # double precision used
@@ -86,26 +86,35 @@ if coord_type == 1:
 
 for x in wavelengths:
     #TODO: check for any errors when reading in files
-	single_wl_maps[x] = (np.loadtxt(single_wl_cats[x], skiprows=headerlines, usecols=map_col, dtype=np.str)).tolist()
-	if coord_type == 0:
-		glon[x], glat[x] = np.loadtxt(single_wl_cats[x], skiprows=headerlines, usecols=coord_cols, unpack=True, dtype=dt)
-	elif coord_type == 1: # this is unacceptable, make them glat and glon
-		ra[x], dec[x] = np.loadtxt(single_wl_cats[x], skiprows=headerlines, usecols=coord_cols, unpack=True, dtype=dt)
-		source_coords = SkyCoord(SkyCoord(ra[x]*u.degree, dec[x]*u.degree, frame='icrs'))
-		source_coords = source_coords.transform_to('galactic')
-		glon[x] = source_coords.l.degree
-		glat[x] = source_coords.b.degree
-	else:
-		sys.exit('Unknown input coordinate type, quitting...')
-total_sources = len(single_wl_maps[reference_wavelength])
-print 'Total reference wavelength sources:  ' + str(total_sources)
+    cat_name = cat_loc + single_wl_cats[x]
+    single_wl_maps[x] = (np.loadtxt(cat_name, skiprows=headerlines, usecols=map_col, dtype=np.str)).tolist()
+    if coord_type == 0:
+        glon[x], glat[x] = np.loadtxt(cat_name, skiprows=headerlines, usecols=coord_cols, unpack=True, dtype=dt)
+    elif coord_type == 1: # this is unacceptable, make them glat and glon
+        ra[x], dec[x] = np.loadtxt(cat_name, skiprows=headerlines, usecols=coord_cols, unpack=True, dtype=dt)
+        glon[x], glat[x] = coord_tools.icrs_to_galactic(ra[x],dec[x])
+    else:
+        sys.exit('Unknown input coordinate type, quitting...')
 
+total_wavelengths = len(wavelengths)
+total_required = len(wavelengths_required)
+total_sources = len(single_wl_maps[reference_wavelength])
 
 # filter reference wavelength list subject according to duplicate_filter_type
 # ------------------------------------------------------------------------------
 # send: reference_wavelength map names, coords to find_reference_sources
 # return: ammended reference wavelength map names, coords in same format
 # NOTE: do other_wavelengths require filtering too?
+
+
+single_wl_maps[reference_wavelength], glon[reference_wavelength], glat[reference_wavelength] = find_reference_sources.duplicate_filter(single_wl_maps[reference_wavelength], glon[reference_wavelength], glat[reference_wavelength], same_wl_beam)
+
+
+
+########################
+## WORKING UP TO HERE ##
+########################
+
 
 # find counterparts in specified wavelengths
 # ------------------------------------------------------------------------------

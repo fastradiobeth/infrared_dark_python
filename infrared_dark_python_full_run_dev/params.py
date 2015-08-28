@@ -19,8 +19,8 @@ reference_wavelength = 250
 # filesystem setup
 # ------------------------------------------------------------------------------
 # final '/' required for each location string
-cat_loc = '/home/bjones/Documents/IRDC_catalogues/' # location of input catalogues
-output_loc = '/home/bjones/Desktop/' # output location of cutouts
+cat_loc = '/home/beth/Desktop/IRDC_catalogues/' # location of input catalogues
+output_loc = '/home/beth/Desktop/' # output location of cutouts
 cloud_loc = '/raid/scratch/bjones_IRDC/IRDCs/' # IRDC FITS files location
 
 # MOVE TO CUTOUT SCRIPT

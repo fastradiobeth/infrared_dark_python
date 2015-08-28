@@ -159,7 +159,7 @@ for x in wavelengths:
 		glon[x], glat[x] = np.loadtxt(single_wl_cats[x], skiprows=headerlines, usecols=coord_cols, unpack=True, dtype=dt)
 	elif coord_type == 1:
 		ra[x], dec[x] = np.loadtxt(single_wl_cats[x], skiprows=headerlines, usecols=coord_cols, unpack=True, dtype=dt)
-		source_coords = SkyCoord(SkyCoord(ra[x]*u.degree, dec[x]*u.degree, frame='icrs'))
+		source_coords = SkyCoord(ra[x]*u.degree, dec[x]*u.degree, frame='icrs')
 		source_coords = source_coords.transform_to('galactic')
 		glon[x] = source_coords.l.degree
 		glat[x] = source_coords.b.degree
