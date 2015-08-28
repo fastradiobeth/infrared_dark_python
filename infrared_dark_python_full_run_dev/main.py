@@ -21,8 +21,7 @@ import numpy as np # checked
 #import montage_wrapper as montage   # problems with this (breadstick and almap11) - TODO: check versions of packages and $PATH in both cases
 
 # Beth's modules
-import coord_tools # conversions between systems and angular separations
-import find_reference_sources, find_counterparts
+import coord_tools, find_reference_sources, find_counterparts, catalogue_compare
 
 # essential parameters
 # ------------------------------------------------------------------------------
@@ -106,7 +105,6 @@ total_sources = len(single_wl_maps[reference_wavelength])
 
 single_wl_maps[reference_wavelength], glon[reference_wavelength], glat[reference_wavelength] = find_reference_sources.duplicate_filter(single_wl_maps[reference_wavelength], glon[reference_wavelength], glat[reference_wavelength], same_wl_beam)
 
-
 # find counterparts in specified wavelengths
 # ------------------------------------------------------------------------------
 # find all sources with a counterpart in all wavelengths_required and no
@@ -114,7 +112,7 @@ single_wl_maps[reference_wavelength], glon[reference_wavelength], glat[reference
 
 candidate_maps, candidate_glons, candidate_glats, candidate_dists = find_counterparts.find_counterparts(single_wl_maps, glon, glat, wavelengths, wavelengths_required, wavelengths_excluded, reference_wavelength, beam)
 
-### TESTING: 160 quiet catalogue reproduction. Gives 851 candidates here.
+
 
 # remove sources with multiple higher resolution sources assigned to one
 # lower resolution sources
@@ -122,12 +120,35 @@ candidate_maps, candidate_glons, candidate_glats, candidate_dists = find_counter
 # NOTE: Is this necessary?
 # NOTE: direct duplicates only- see filtering note regarding further specification
 
-# might run in find_counterparts, or create second run using the longest wavelength
-# as temp_reference and finding the closest reference source, only using the
-# current subset returned from find_counterparts
-# return: coords, distances and reference_wavelength map name as above, with only
-# one reference source per longest wavelength source
-# -----> see find_counterparts_alpha for existing version
+# using the current candidate list:
+# produce find counterparts_run with longest wl as ref, and then run through
+# your *new* (non-existent) catalogue comparison module
+longest_wavelength = max(wavelengths_required)
+temp_wavelengths_required = [reference_wavelength, longest_wavelength]
+temp_wavelengths_excluded = []
+temp_candidate_maps = {
+    reference_wavelength:candidate_maps,
+    longest_wavelength:candidate_maps
+}
+
+temp_maps, temp_glons, temp_glats, temp_dists = find_counterparts.find_counterparts(temp_candidate_maps, candidate_glons, candidate_glats, temp_wavelengths_required, temp_wavelengths_required, temp_wavelengths_excluded, longest_wavelength, beam)
+
+# create arrays for rows to be matched
+comparison_A = np.array([candidate_glons[reference_wavelength], candidate_glats[reference_wavelength], candidate_glons[longest_wavelength], candidate_glats[longest_wavelength]])
+comparison_B = np.array([temp_glons[reference_wavelength], temp_glats[reference_wavelength], temp_glons[longest_wavelength], temp_glats[longest_wavelength]])
+
+# return indices of candidate_glons appearing in both runs
+candidate_indices = catalogue_compare.matched_sources(comparison_A, comparison_B)
+
+candidate_maps = [candidate_maps[i] for i in candidate_indices]
+for x in wavelengths:
+    candidate_glons[x] = candidate_glons[x][candidate_indices]
+    candidate_glats[x] = candidate_glats[x][candidate_indices]
+    candidate_dists[x] = candidate_dists[x][candidate_indices]
+
+
+### TESTING: 160 quiet catalogue reproduction. Gives 840 candidates here. ###
+###             -- one less explainable by running duplicate removal first
 
 # print final set of sources to catalogue
 # ------------------------------------------------------------------------------
