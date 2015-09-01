@@ -15,11 +15,11 @@
 # TODO: not all of these will be necessary, check + write documentation on packages
 import os # checked
 import sys # checked
-import glob
-import datetime
-import re # not sure what this is
+import glob # checked
+import datetime # checked
+import re # aha! it's regex!
 import numpy as np # checked
-from more_itertools import unique_everseen
+from more_itertools import unique_everseen #checked
 import montage_wrapper as montage   # problems with this (breadstick and almap11) - TODO: check versions of packages and $PATH in both cases
 
 # Beth's modules
@@ -30,7 +30,7 @@ import coord_tools, find_reference_sources, find_counterparts, catalogue_compare
 # import settings from params.py
 # -- TODO: may want to consider only importing relevant variables for given settings
 # NOTE: NAMESPACES.
-from params import survey_code, wavelengths, wavelengths_excluded, wavelengths_required, reference_wavelength, duplicate_filter_type, separation_type, single_wl_cats, map_col, coord_cols, headerlines, coord_type, cat_loc, output_loc
+from params import survey_code, wavelengths, wavelengths_excluded, wavelengths_required, reference_wavelength, duplicate_filter_type, separation_type, single_wl_cats, map_col, coord_cols, headerlines, coord_type, cat_loc, output_loc, want_cutouts
 
 
 # beam/separation selection
@@ -203,68 +203,69 @@ for IRDC in unique_maps:
 		# number starts from 0- correct so starts from 1
 		# one band at a time for the source
 		for wl in wavelengths_required:
-			# construct a row to write
-			row =[IRDC,str(number+1),str(wl),"{0:.4f}".format(candidate_glons[wl][index]), "{0:.4f}".format(candidate_glats[wl][index]),"{0:.4f}".format(candidate_ras[wl][index]), "{0:.4f}".format(candidate_decs[wl][index]), "{0:.2f}".format(candidate_dists[wl][index])]
+			# construct a row to write- no spaces are to prevent syntax highlighting from breaking, sorry
+			row=[IRDC,str(number+1),str(wl),"{0:.4f}".format(candidate_glons[wl][index]),"{0:.4f}".format(candidate_glats[wl][index]),"{0:.4f}".format(candidate_ras[wl][index]),"{0:.4f}".format(candidate_decs[wl][index]),"{0:.2f}".format(candidate_dists[wl][index])]
 			catalogue_out.write("".join(data.ljust(col_width) for data in row))
 			catalogue_out.write('\n')
-
 catalogue_out.close()
 
-# find FITS files available for cutting
+# cutouts
 # ------------------------------------------------------------------------------
-# glob cloud_loc for this, and select IRDC FITS files that have map names in
-# the written map_names
 
-from params import cloud_loc, cut_width_type
+if want_cutouts == 1:
+    # find FITS files available for cutting
+    # --------------------------------------
+    from params import cloud_loc, cut_width_type
 
-# WOW SUCH PARAMS
-# CUT WIDTH NEEDS SELECTION AND CUT_WIDTH_ARR CREATED
-# SUBIMAGE COORDINATES NEED SORTING OUT
+    # find all FITS files present- will include same cloud in multiple bands
+    if os.path.isdir(cloud_loc) == False:
+    	sys.exit('IRDC FITS directory (cloud_loc) not found.')
+    # TODO: make this recursive search as different bands may be in subdirectories
+    filenames = glob.glob(cloud_loc + '*.fits')
+    # make subdirectory in output_loc for cutouts
+    cutout_dir = catalogue_out_name + '_' + str(datetime.date.today())
+    os.mkdir(cutout_dir)
 
-# import FITS cloud location
-if os.path.isdir(cloud_loc) == False:
-	sys.exit('IRDC FITS directory (cloud_loc) not found.')
 
-# find all FITS files present- will include same cloud in multiple bands
-# TODO: make this recursive search as different bands may be in subdirectories
-filenames = glob.glob(cloud_loc + '*.fits')
+    # TODO: REORGANISE FROM HERE ONWARDS INTO SEPARATE CUTSOURCES MODULE
 
-# make subdirectory in output_loc
-cutout_dir = catalogue_out_name + '_' + str(datetime.date.today())
-os.mkdir(cutout_dir)
+    # select cut width
+    # -----------------------
+    if cut_width_type == 0:
+    	# calculate and use maximum starless source width as cut width
+        from params import starless_cat_name, stl_headerlines, stl_rad_and_dist_cols
+        starless_cat = cat_loc + starless_cat_name
+        if os.path.isfile(starless_cat) == True:
+    		rad_stl, dist_stl = np.loadtxt(starless_cat, skiprows=stl_headerlines, usecols=stl_rad_and_dist_cols, unpack=True)
+    		print 'Starless catalogue imported.'
+        else:
+    		sys.exit('Could not find starless catalogue. Quitting...')
+        width_stl = coord_tools.ang_diameter(rad_stl, dist_stl)
+        cut_width = max(width_stl)
+        print 'Cut width set to maximum width of catalogued starless objects:  ' + str(cut_width) + ' deg'
 
-# selection of cut width
-# ------------------------------------------------------------------------------
-if cut_width_type == 0:
-	# calculate and use maximum starless source width as cut width
-    from params import starless_cat_name, stl_headerlines, stl_rad_and_dist_cols
-    starless_cat = cat_loc + starless_cat_name
-    if os.path.isfile(starless_cat) == True:
-		rad_stl, dist_stl = np.loadtxt(starless_cat, skiprows=stl_headerlines, usecols=stl_rad_and_dist_cols, unpack=True)
-		print 'Starless catalogue imported.'
     else:
-		sys.exit('Could not find starless catalogue. Quitting...')
-    width_stl = coord_tools.ang_diameter(rad_stl, dist_stl)
-    cut_width = max(width_stl)
-    print 'Cut width set to maximum width of catalogued starless objects:  ' + str(cut_width) + ' deg'
+    	# set cut width to constant angle in degrees
+        from params import default_cut_width
+        cut_width = default_cut_width
 
+
+    # produce cutouts
+    # ------------------
+    # need to match coordinate substrings in FITS filenames to candidate_maps
+    for i,map_coord in enumerate(candidate_maps):
+        # if map coodinate has FITS files, cut source from all FITS files of IRDC
+        matched_files = [s for s in filenames if map_coord in s]
+        if len(matched_files) != 0:
+            for file in matched_files:
+                # cut the thing where i is catalogue entry, starting from 0
+                output_name = cutout_dir + '/' + file[len(cloud_loc):-4] + '_' + str(i) + '.fits' # FIX THIS
+                # subtract the length of cloud_loc from the start of file
+                montage.commands.mSubimage(file, output_name, candidate_ras[reference_wavelength][i], candidate_decs[reference_wavelength][i], cut_width)
+        else:
+            # catalogue source FITS file not found, put on some list somewhere or sth
+            print 'Source in IRDC at ' + map_coord + ' not cut (no matching FITS file).'
 else:
-	# set cut width to constant angle in degrees
-    from params import default_cut_width
-    cut_width = default_cut_width
+    print 'No cutouts produced'
 
-
-# producing cutouts
-# ------------------------------------------------------------------------------
-# need to match coordinate substrings in FITS filenames to candidate_maps
-for i,map_coord in enumerate(candidate_maps):
-    # if map coodinate has FITS files, cut source from all FITS files of IRDC
-    matched_files = [s for s in filenames if map_coord in s]
-    if len(matched_files) != 0:
-        for file in matched_files:
-            # cut the thing where i is catalogue entry, starting from 0
-            output_name = cutout_dir + '/' + file[:-4] + '_' + str(i) + '.fits' # FIX THIS
-            montage.commands.mSubimage(file, output_name, candidate_ras[reference_wavelength][i], candidate_decs[reference_wavelength][i], cut_width)
-    else:
-        # catalogue source FITS file not found, put on some list somewhere or sth
-        print 'nope'
+# end of thing

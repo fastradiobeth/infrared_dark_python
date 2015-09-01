@@ -78,6 +78,11 @@ beam_to_use = 160 # survey beam, separation_type 2 only
 # ------------------------------------------------------------------------------
 # will cut from all FITS files of map name assigned to a source
 
+# codes for want_cutouts
+#	0 - no
+#	1 - yes
+want_cutouts = 1
+
 # codes for cutout width selection
 #	0 	-	use maximum angular diameter of starless sources
 #	1	- 	set to constant value in degrees, default_cut_width (default)
