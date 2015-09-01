@@ -18,6 +18,7 @@ import sys # checked
 import glob
 import re # not sure what this is
 import numpy as np # checked
+from more_itertools import unique_everseen
 #import montage_wrapper as montage   # problems with this (breadstick and almap11) - TODO: check versions of packages and $PATH in both cases
 
 # Beth's modules
@@ -144,7 +145,7 @@ for x in wavelengths:
     candidate_glats[x] = candidate_glats[x][candidate_indices]
     candidate_dists[x] = candidate_dists[x][candidate_indices]
 
-total_candidates = len(candidate_glons)
+total_candidates = len(candidate_maps)
 ### TESTING: 160 quiet catalogue reproduction. Gives 840 candidates here. ###
 ###             -- one less explainable by running duplicate removal first
 
@@ -161,7 +162,7 @@ for x in wavelengths_required:
 # setup
 col_width = 15
 catalogue_out_path = output_loc + 'python_src_assoc_'
-for x in wavelengths required:
+for x in wavelengths_required:
     catalogue_out_path += str(x)+'_'
 catalogue_out_full_path = catalogue_out_path + str(beam) + 'asec_full.dat'
 catalogue_out_path += str(beam) + 'asec.dat'
