@@ -21,7 +21,7 @@ reference_wavelength = 250
 # final '/' required for each location string
 cat_loc = '/home/beth/Desktop/IRDC_catalogues/' # location of input catalogues
 output_loc = '/home/beth/Desktop/' # output location of cutouts
-cloud_loc = '/raid/scratch/bjones_IRDC/IRDCs/' # IRDC FITS files location
+cloud_loc = '/home/beth/Downloads/IRDCs/' # IRDC FITS files location
 
 # MOVE TO CUTOUT SCRIPT
  # TODO: need to make subdirectory in output_loc to store cutouts
@@ -76,20 +76,15 @@ beam_to_use = 160 # survey beam, separation_type 2 only
 
 # cutout setup
 # ------------------------------------------------------------------------------
-
-# wavelengths of FITS files to cut from
-wavelengths_to_cut = [70,160,250,350,500]
-# TODO: specify naming of FITS files for import/ glob for them
+# will cut from all FITS files of map name assigned to a source
 
 # codes for cutout width selection
 #	0 	-	use maximum angular diameter of starless sources
-#	2	- 	set to constant value in degrees, default_cut_width
+#	1	- 	set to constant value in degrees, default_cut_width (default)
 cut_width_type = 0
 default_cut_width = 0.02 # make sure this is the default setting
 
 # catalogue details of starless catalogue, cut_width_type = 0 only
 starless_cat_name = 'IRDC_l015_l055_temperature_mass_luminosity_run_160_350.dat'
 stl_headerlines = 3
-stl_map_col = [0]
 stl_rad_and_dist_cols = [4,8]	# source radius in pc and dist in kpc
-stl_coord_type = 0

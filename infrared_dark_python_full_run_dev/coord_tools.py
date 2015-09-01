@@ -24,6 +24,12 @@ def ang_sep(test_x, test_y, source_x, source_y):
 	distance = np.degrees(np.arctan2(y_term, x_term))
 	return distance
 
+def ang_diameter(radius, distance):
+	# returns the angular diameter of a source in degrees given radius [pc] and
+	# distance [kpc]. Factor of 1.5 to allow for eccentricity
+	width = np.degrees(np.arctan((1.5*2*radius)/(1000*distance)))
+	return width
+
 def icrs_to_galactic(ra, dec):
 	source_coords = SkyCoord(ra*u.degree, dec*u.degree, frame='icrs')
   	source_coords = source_coords.transform_to('galactic')

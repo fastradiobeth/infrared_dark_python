@@ -90,6 +90,7 @@ print 'Total number of sources to be cut: ' +str(total_sources)
 # assumes radius [pc] and distance [kpc]
 # uses 1.5*(2*radius) to allow for elliptical sources
 def ang_diameter(radius, distance):
+	# NOTE:now found in coord_tools
 	width = np.degrees(np.arctan((1.5*2*radius)/(1000*distance)))
 	return width
 
