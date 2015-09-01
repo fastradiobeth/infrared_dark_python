@@ -15,15 +15,13 @@
 # TODO: not all of these will be necessary, check + write documentation on packages
 import os # checked
 import sys # checked
-import glob # checked
-import datetime # checked
 import re # aha! it's regex!
 import numpy as np # checked
 from more_itertools import unique_everseen #checked
 import montage_wrapper as montage   # problems with this (breadstick and almap11) - TODO: check versions of packages and $PATH in both cases
 
 # Beth's modules
-import coord_tools, find_reference_sources, find_counterparts, catalogue_compare
+import coord_tools, find_reference_sources, find_counterparts, catalogue_compare, cutsources
 
 # essential parameters
 # ------------------------------------------------------------------------------
@@ -211,45 +209,9 @@ catalogue_out.close()
 
 # cutouts
 # ------------------------------------------------------------------------------
-
+from params import cloud_loc
 if want_cutouts == 1:
-    # find FITS files available for cutting
-    # --------------------------------------
-    from params import cloud_loc, cut_width_type
-
-    # find all FITS files present- will include same cloud in multiple bands
-    if os.path.isdir(cloud_loc) == False:
-    	sys.exit('IRDC FITS directory (cloud_loc) not found.')
-    # TODO: make this recursive search as different bands may be in subdirectories
-    filenames = glob.glob(cloud_loc + '*.fits')
-    # make subdirectory in output_loc for cutouts
-    cutout_dir = catalogue_out_name + '_' + str(datetime.date.today())
-    os.mkdir(cutout_dir)
-
-
-    # TODO: REORGANISE FROM HERE ONWARDS INTO SEPARATE CUTSOURCES MODULE
-
-    # select cut width
-    # -----------------------
-    if cut_width_type == 0:
-    	# calculate and use maximum starless source width as cut width
-        from params import starless_cat_name, stl_headerlines, stl_rad_and_dist_cols
-        starless_cat = cat_loc + starless_cat_name
-        if os.path.isfile(starless_cat) == True:
-    		rad_stl, dist_stl = np.loadtxt(starless_cat, skiprows=stl_headerlines, usecols=stl_rad_and_dist_cols, unpack=True)
-    		print 'Starless catalogue imported.'
-        else:
-    		sys.exit('Could not find starless catalogue. Quitting...')
-        width_stl = coord_tools.ang_diameter(rad_stl, dist_stl)
-        cut_width = max(width_stl)
-        print 'Cut width set to maximum width of catalogued starless objects:  ' + str(cut_width) + ' deg'
-
-    else:
-    	# set cut width to constant angle in degrees
-        from params import default_cut_width
-        cut_width = default_cut_width
-
-
+    cut_width, cutout_dir, filenames = cutsources.setup(catalogue_out_name,cat_loc)
     # produce cutouts
     # ------------------
     # need to match coordinate substrings in FITS filenames to candidate_maps
