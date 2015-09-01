@@ -76,7 +76,7 @@ if os.path.isdir(output_loc) == False:
 # TODO: check for single_wl_cat existence and exception this
 
 single_wl_maps ={}
-dt = np.dtype('f8') # double precision used
+dt = np.dtype('f8') # double precision
 glat = {}
 glon = {}
 if coord_type == 1:
@@ -112,12 +112,10 @@ single_wl_maps[reference_wavelength], glon[reference_wavelength], glat[reference
 
 candidate_maps, candidate_glons, candidate_glats, candidate_dists = find_counterparts.find_counterparts(single_wl_maps, glon, glat, wavelengths, wavelengths_required, wavelengths_excluded, reference_wavelength, beam)
 
-
-
 # remove sources with multiple higher resolution sources assigned to one
 # lower resolution sources
 # ------------------------------------------------------------------------------
-# NOTE: Is this necessary?
+# NOTE: Is this necessary? May want to relocate this to function
 # NOTE: direct duplicates only- see filtering note regarding further specification
 
 # using the current candidate list:
@@ -146,13 +144,68 @@ for x in wavelengths:
     candidate_glats[x] = candidate_glats[x][candidate_indices]
     candidate_dists[x] = candidate_dists[x][candidate_indices]
 
-
+total_candidates = len(candidate_glons)
 ### TESTING: 160 quiet catalogue reproduction. Gives 840 candidates here. ###
 ###             -- one less explainable by running duplicate removal first
 
 # print final set of sources to catalogue
 # ------------------------------------------------------------------------------
 # into output directory (catalogue directory may not have write permissions)
+
+# convert all coordinates to ra and dec
+candidate_ras = {}
+candidate_decs = {}
+for x in wavelengths_required:
+    candidate_ras[x], candidate_decs[x] = coord_tools.galactic_to_icrs(candidate_glons[x], candidate_glats[x])
+
+# setup
+col_width = 15
+catalogue_out_path = output_loc + 'python_src_assoc_'
+for x in wavelengths required:
+    catalogue_out_path += str(x)+'_'
+catalogue_out_full_path = catalogue_out_path + str(beam) + 'asec_full.dat'
+catalogue_out_path += str(beam) + 'asec.dat'
+
+catalogue_header = ['map name']
+for x in range(total_required):
+	catalogue_header.append(str(wavelengths_required[x]) + ' glon')
+	catalogue_header.append(str(wavelengths_required[x]) + ' glat')
+
+catalogue_header_full = ['map name','source', 'band [mu]', 'glon', 'glat', 'ra', 'dec', 'distance ["]']
+
+# write to concise catalogue file
+catalogue_out = open(catalogue_out_path, 'w')
+catalogue_out.write("".join(data.ljust(col_width) for data in catalogue_header))
+catalogue_out.write('\n' + '-'*135 + '\n')
+for x in range(total_candidates):
+	row = [candidate_maps[x]]
+	for wl in wavelengths_required:
+		row.append("{0:.4f}".format(candidate_glons[wl][x]))
+		row.append("{0:.4f}".format(candidate_glats[wl][x]))
+	catalogue_out.write("".join(data.ljust(col_width) for data in row))
+	catalogue_out.write('\n')
+catalogue_out.close()
+
+# write to full catalogue file
+# NOTE: extra loops are for numbering sources within clouds
+catalogue_out = open(catalogue_out_full_path, 'w')
+catalogue_out.write("".join(data.ljust(col_width) for data in catalogue_header_full))
+catalogue_out.write('\n' + '-'*135 + '\n')
+unique_maps = list(unique_everseen(candidate_maps))
+for IRDC in unique_maps:
+	# indices to use from candidate lists
+	sources_in_map = [i for i,v in enumerate(candidate_maps) if v==IRDC]
+	# write each candidate with index in sources_in_map
+	for number,index in enumerate(sources_in_map):
+		# number starts from 0
+		# one band at a time for the source
+		for wl in wavelengths_required:
+			# construct a row to write
+			row =[IRDC,str(number+1),str(wl),"{0:.4f}".format(candidate_glons[wl][index]), "{0:.4f}".format(candidate_glats[wl][index]),"{0:.4f}".format(candidate_ras[wl][index]), "{0:.4f}".format(candidate_decs[wl][index]), "{0:.2f}".format(candidate_dists[wl][index])]
+			catalogue_out.write("".join(data.ljust(col_width) for data in row))
+			catalogue_out.write('\n')
+
+catalogue_out.close()
 
 # find all FITS files available for cutting
 # ------------------------------------------------------------------------------
