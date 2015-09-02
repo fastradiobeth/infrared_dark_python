@@ -1,6 +1,5 @@
 # find_counterparts.py
 # does what it says on the label
-# development version: based on main body of find_counterparts_alpha
 
 import numpy as np
 import coord_tools

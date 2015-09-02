@@ -215,7 +215,7 @@ if want_cutouts == 1:
         # if map coodinate has FITS files, cut source from all FITS files of IRDC
         matched_files = [s for s in filenames if map_coord in s]
         if len(matched_files) != 0:
-            cutsources.cut(candidate_ras[reference_wavelength][i], candidate_decs[reference_wavelength][i], i, matched_files, cut_width, cloud_loc, cutout_dir)
+            cutsources.cut(candidate_ras[reference_wavelength][i], candidate_decs[reference_wavelength][i], matched_files, cut_width, cloud_loc, cutout_dir, i)
         else:
             # catalogue source FITS file not found, put on some list somewhere or sth
             print 'Source in IRDC at ' + map_coord + ' not cut (no matching FITS file).'
