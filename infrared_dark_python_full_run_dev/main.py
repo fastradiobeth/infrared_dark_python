@@ -18,7 +18,6 @@ import sys # checked
 import re # aha! it's regex!
 import numpy as np # checked
 from more_itertools import unique_everseen #checked
-import montage_wrapper as montage   # problems with this (breadstick and almap11) - TODO: check versions of packages and $PATH in both cases
 
 # Beth's modules
 import coord_tools, find_reference_sources, find_counterparts, catalogue_compare, cutsources
@@ -72,8 +71,6 @@ if os.path.isdir(cat_loc) == False:
 	sys.exit('Catalogue directory not found.')
 if os.path.isdir(output_loc) == False:
 	sys.exit('Output directory not found.')
-# TODO: check cloud locations and created cutout directory when running cutout script
-# TODO: check for single_wl_cat existence and exception this
 
 single_wl_maps ={}
 dt = np.dtype('f8') # double precision
@@ -101,7 +98,7 @@ total_sources = len(single_wl_maps[reference_wavelength])
 
 # filter reference wavelength list subject according to duplicate_filter_type
 # ------------------------------------------------------------------------------
-# NOTE: do other_wavelengths require filtering too?
+# TODO: do other_wavelengths require filtering too?
 
 single_wl_maps[reference_wavelength], glon[reference_wavelength], glat[reference_wavelength] = find_reference_sources.duplicate_filter(single_wl_maps[reference_wavelength], glon[reference_wavelength], glat[reference_wavelength], same_wl_beam)
 
@@ -115,7 +112,6 @@ candidate_maps, candidate_glons, candidate_glats, candidate_dists = find_counter
 # remove sources with multiple higher resolution sources assigned to one
 # lower resolution sources
 # ------------------------------------------------------------------------------
-# NOTE: Is this necessary? May want to relocate this to function
 # NOTE: direct duplicates only- see filtering note regarding further specification
 
 # using the current candidate list:
@@ -219,15 +215,9 @@ if want_cutouts == 1:
         # if map coodinate has FITS files, cut source from all FITS files of IRDC
         matched_files = [s for s in filenames if map_coord in s]
         if len(matched_files) != 0:
-            for file in matched_files:
-                # cut the thing where i is catalogue entry, starting from 0
-                output_name = cutout_dir + '/' + file[len(cloud_loc):-4] + '_' + str(i) + '.fits' # FIX THIS
-                # subtract the length of cloud_loc from the start of file
-                montage.commands.mSubimage(file, output_name, candidate_ras[reference_wavelength][i], candidate_decs[reference_wavelength][i], cut_width)
+            cutsources.cut(candidate_ras[reference_wavelength][i], candidate_decs[reference_wavelength][i], i, matched_files, cut_width, cloud_loc, cutout_dir)
         else:
             # catalogue source FITS file not found, put on some list somewhere or sth
             print 'Source in IRDC at ' + map_coord + ' not cut (no matching FITS file).'
 else:
     print 'No cutouts produced'
-
-# end of thing
