@@ -3,7 +3,14 @@
 # parameters file required for run of infrared_dark_python
 # descriptions may be relocated to man page or other documentation
 # ******************************************************************************
+"""
+Input parameters file required for running infrared_dark_python_full_run.
+Variables are to be changed by user to specify settings in this file only.
+Variable descriptions and options are specified in comments next to
+each statement.
 
+I mean it, don't change any other files. Just this one.
+"""
 # survey setup
 # ------------------------------------------------------------------------------
 # survey codes:
@@ -22,10 +29,6 @@ reference_wavelength = 250
 cat_loc = '/home/beth/Desktop/IRDC_catalogues/' # location of input catalogues
 output_loc = '/home/beth/Desktop/' # output location of cutouts
 cloud_loc = '/home/beth/Downloads/IRDCs/' # IRDC FITS files location
-
-# MOVE TO CUTOUT SCRIPT
- # TODO: need to make subdirectory in output_loc to store cutouts
-output_loc_cutouts = '/raid/scratch/bjones_IRDC/python_src_assoc_250_350_18.0asec_cutouts/'
 
 # single wavelength catalogue setup
 # ------------------------------------------------------------------------------
