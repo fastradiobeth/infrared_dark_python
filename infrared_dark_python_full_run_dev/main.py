@@ -7,28 +7,21 @@
 # ******************************************************************************
 # script for running through proccess of associating sources found in single
 # wavelengths to sources in other wavelengths and producing FITS cutouts
-# TODO: sort out the indentation inconsistency as a result of swapping from Debian
-# to Scientific Linux
 
 # packages
 # ------------------------------------------------------------------------------
-# TODO: not all of these will be necessary, check + write documentation on packages
-import os # checked
-import sys # checked
-import re # aha! it's regex!
-import numpy as np # checked
-from more_itertools import unique_everseen #checked
+import os
+import sys
+import re
+import numpy as np
+from more_itertools import unique_everseen 
 
-# Beth's modules
+# infrared_dark_python modules
 import coord_tools, find_reference_sources, find_counterparts, catalogue_compare, cutsources
 
 # essential parameters
 # ------------------------------------------------------------------------------
-# import settings from params.py
-# -- TODO: may want to consider only importing relevant variables for given settings
-# NOTE: NAMESPACES.
 from params import survey_code, wavelengths, wavelengths_excluded, wavelengths_required, reference_wavelength, duplicate_filter_type, separation_type, single_wl_cats, map_col, coord_cols, headerlines, coord_type, cat_loc, output_loc, want_cutouts
-
 
 # beam/separation selection
 # ------------------------------------------------------------------------------
@@ -63,7 +56,6 @@ elif duplicate_filter_type == 3:
 	same_wl_beam = beam
 else:
 	same_wl_beam = 0
-
 
 # check for directories and import single wl catalogues
 # ------------------------------------------------------------------------------
@@ -184,7 +176,7 @@ for x in range(total_candidates):
 catalogue_out.close()
 
 # write to full catalogue file
-# NOTE: extra loops are for numbering sources within clouds
+# extra loops are for numbering sources within clouds
 catalogue_out = open(catalogue_out_full_path, 'w')
 catalogue_out.write("".join(data.ljust(col_width) for data in catalogue_header_full))
 catalogue_out.write('\n' + '-'*135 + '\n')
