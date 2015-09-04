@@ -1,16 +1,24 @@
 # find_reference_sources.py
 # ******************************************************************************
-# tools for creating single wavelength source lists for counterpart association
-# by filtering a single wavelength catalogue to remove duplicate entries and/or
-# sources that are too close to be considered as separate objects
-# ******************************************************************************
-# TODO: could make into command line module using __name__ and __main__, and print to screen or sth
 # can be applied to other wavelengths as well as reference if necessary
+
+"""
+Module for filtering lists of objects detected in a single wavelength.
+Currently used in infrared_dark_python_full_run for removing duplicate
+reference sources.
+Required packages: numpy, infrared_dark_python/coord_tools
+"""
 
 import coord_tools
 import numpy as np
 
 def duplicate_filter(maps, glons, glats, separation = 0):
+	"""
+	Removes duplicate entries of sources in a single wavelength
+	catalogue. Separation is 0 by default (only exact duplicates)
+	but can be set to a non-zero value [arcseconds] to also remove
+	sources with centroids closer together than this separation.
+	"""
 	source_count = len(maps)
 	for x in range(source_count):
 		# arrays containing copies of ONE reference coordinate to check

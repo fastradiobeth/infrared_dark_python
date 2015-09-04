@@ -1,11 +1,29 @@
-# find_counterparts.py
-# does what it says on the label
+# find_counterparts
+# *****************************************************************************
+"""
+Module containing code to associate counterparts to a reference source.
+Designed for finding counterparts in other wavelengths using a
+catalogue of sources in a reference wavelength.
+Required modules: numpy, infrared_dark_python/coord_tools
+"""
 
 import numpy as np
 import coord_tools
 
 # input: all glat, all glon, reference maps, beam, wavelengths, required_wavelengths, excluded_wavelengths,  reference wavelength
 def find_counterparts(single_wl_maps, glon, glat, wavelengths, wavelengths_required, wavelengths_excluded, reference_wavelength, beam):
+    """
+    Associates counterparts to sources in single wavelength catalogues
+    that are passed in as map, glon and glat dictionaries with
+    wavelength values as keys. All sources with at least one
+    counterpart in all wavelengths_required listed, and no counterparts
+    in any wavelengths_excluded.
+    Counterparts are associated to a source in the reference_wavelength
+    if the centroid is within 1 beam of the reference source centroid.
+    Returns candidates with all requirements met by a map list,
+    glon in each required wavelength, glat in each required wavelength
+    and the distance to an associated centroid in each wavelength.
+    """
     total_wavelengths = len(wavelengths)
     total_sources = len(single_wl_maps[reference_wavelength])
     total_required = len(wavelengths_required)
@@ -20,8 +38,7 @@ def find_counterparts(single_wl_maps, glon, glat, wavelengths, wavelengths_requi
     for i,j in enumerate(wavelengths):
         print 'Associating sources in ' + str(j) + ' microns... \n'
     	if j == reference_wavelength:
-    		# this is reference wavelength
-    		source_all_wl[i,:] = 1 # yes, it has a counterpart in reference...
+    		source_all_wl[i,:] = 1
     		source_glons[i,:] = glon[j]
     		source_glats[i,:] = glat[j]
     	else:
