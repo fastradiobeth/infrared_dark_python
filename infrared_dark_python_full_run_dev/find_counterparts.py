@@ -1,5 +1,10 @@
 # find_counterparts
-# *****************************************************************************
+# ***************************************************************************
+# INFRARED DARK PYTHON
+# September 2015
+# Beth Jones
+# School of Physics and Astronomy | University of Manchester
+# ***************************************************************************
 """
 Module containing code to associate counterparts to a reference source.
 Designed for finding counterparts in other wavelengths using a

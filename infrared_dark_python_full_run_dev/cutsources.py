@@ -1,5 +1,10 @@
-# find FITS files available for cutting
-# --------------------------------------
+# cutsources.py
+# ***************************************************************************
+# INFRARED DARK PYTHON
+# September 2015
+# Beth Jones
+# School of Physics and Astronomy | University of Manchester
+# ***************************************************************************
 """
 Tools for setting up required parameters for cutting large numbers of
 sources from FITS files and producing the cutouts. Designed for use

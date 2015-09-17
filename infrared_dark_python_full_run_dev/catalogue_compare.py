@@ -1,5 +1,10 @@
 # catalogue_compare.py
-# tools module for comparing two source lists
+# ***************************************************************************
+# INFRARED DARK PYTHON
+# September 2015
+# Beth Jones
+# School of Physics and Astronomy | University of Manchester
+# ***************************************************************************
 """
 Tools module for running comparisons between source catalogues
 and lists, and writing outputs to files.
