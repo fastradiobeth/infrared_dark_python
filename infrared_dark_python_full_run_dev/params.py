@@ -26,19 +26,19 @@ reference_wavelength = 250
 # filesystem setup
 # ------------------------------------------------------------------------------
 # final '/' required for each location string
-cat_loc = '/home/beth/Desktop/IRDC_catalogues/' # location of input catalogues
-output_loc = '/home/beth/Desktop/' # output location of cutouts
-cloud_loc = '/home/beth/Downloads/IRDCs/' # IRDC FITS files location
+cat_loc = '/home/bjones/Documents/IRDC_catalogues/' # location of input catalogues
+output_loc = '/raid/scratch/bjones_IRDC/' # output location of cutouts
+cloud_loc = '/raid/scratch/bjones_IRDC/IRDC_full_sample/' # IRDC FITS files location
 
 # single wavelength catalogue setup
 # ------------------------------------------------------------------------------
 
 # need to enter a single wavelength catalogue name for each value in 'wavelengths'
 single_wl_cats = {
-	70 : 'hyper_photometry_sig_var_FWHM_10_new_run_sources_only_70.dat',
-	160: 'hyper_photometry_sig_var_FWHM_10_new_run_sources_only_160.dat',
-	250: 'hyper_photometry_sig_var_FWHM_10_new_run_sources_only_250.dat',
-	350: 'hyper_photometry_sig_var_FWHM_10_new_run_sources_only_350.dat'
+	70 : 'hyper_photometry_sig_var_FWHM_all_IRDC_run160_350_sources_only_160.dat',
+	160: 'hyper_photometry_sig_var_FWHM_all_IRDC_run160_350_sources_only_160.dat',
+	250: 'hyper_photometry_sig_var_FWHM_all_IRDC_run160_350_sources_only_250.dat',
+	350: 'hyper_photometry_sig_var_FWHM_all_IRDC_run160_350_sources_only_350.dat'
 }
 # single wavelength catalogue settings
 map_col = [0]
