@@ -1,9 +1,12 @@
 # find_reference_sources.py
-# ******************************************************************************
-# can be applied to other wavelengths as well as reference if necessary
-
+# ***************************************************************************
+# INFRARED DARK PYTHON
+# September 2015
+# Beth Jones
+# School of Physics and Astronomy | University of Manchester
+# ***************************************************************************
 """
-Module for filtering lists of objects detected in a single wavelength.
+Module for filtering lists of sources detected in a single wavelength.
 Currently used in infrared_dark_python_full_run for removing duplicate
 reference sources.
 Required packages: numpy, infrared_dark_python/coord_tools

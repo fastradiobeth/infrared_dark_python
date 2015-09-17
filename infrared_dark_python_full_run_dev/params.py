@@ -1,8 +1,10 @@
 # params.py
-# ******************************************************************************
-# parameters file required for run of infrared_dark_python
-# descriptions may be relocated to man page or other documentation
-# ******************************************************************************
+# ***************************************************************************
+# INFRARED DARK PYTHON
+# September 2015
+# Beth Jones
+# School of Physics and Astronomy | University of Manchester
+# ***************************************************************************
 """
 Input parameters file required for running infrared_dark_python_full_run.
 Variables are to be changed by user to specify settings in this file only.

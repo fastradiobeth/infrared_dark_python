@@ -1,7 +1,11 @@
 # coord_tools.py
-# ******************************************************************************
-# various tools to allow for comparison between catalogues
-# requires numpy, astropy
+# ***************************************************************************
+# INFRARED DARK PYTHON
+# September 2015
+# Beth Jones
+# School of Physics and Astronomy | University of Manchester
+# ***************************************************************************
+
 """
 Provides various tools to work with either single or mutltiple sets of
 astronomical coordinates, designed for working with Hi-GAL IRDC catalogues.

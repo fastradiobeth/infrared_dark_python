@@ -1,12 +1,16 @@
 # survey_params.py
-# ******************************************************************************
-# because people should at least be given the option to use something that isn't
-# Hi-GAL
-# ******************************************************************************
-# beams in arcseconds assigned to wavelengths in microns
+# ***************************************************************************
+# because people should at least be given the option to use something
+# that isn't Hi-GAL
+# ***************************************************************************
+# INFRARED DARK PYTHON
+# September 2015
+# Beth Jones
+# School of Physics and Astronomy | University of Manchester
+# ***************************************************************************
 """
-Beam widths for use with infrared_dark_python specific to telescope survey
-seleted. Currently contains surveys:
+Beam widths [arcsec] for use with infrared_dark_python specific to
+telescope survey seleted. Currently contains surveys:
 	0 - Herschel 60"/s (Hi-GAL)
 
 Additional surveys can be added to this file, and other survey-specific

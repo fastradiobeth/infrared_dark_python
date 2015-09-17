@@ -1,12 +1,92 @@
 # main.py
-# ******************************************************************************
-# much development version
-# very unprepare
-# wow
-# such module
-# ******************************************************************************
+# ***************************************************************************
+# INFRARED DARK PYTHON
+# September 2015
+# Beth Jones
+# School of Physics and Astronomy | University of Manchester
+# ***************************************************************************
 # script for running through proccess of associating sources found in single
 # wavelengths to sources in other wavelengths and producing FITS cutouts
+"""
+Main script for associating counterparts to sources in a reference wavelength
+to produce a multi-wavelength catalogue of sources, and optionally creating
+cutouts of these sources from larger FITS files of region.
+All user input parameters required for the run are found in 'params',
+whilst all survey parameters are located in 'survey_params'. No
+other files need changing for a full run.
+
+Modules and packages required:
+--------------------------------------------------------------------
+PACKAGES:
+        - datetime, glob, os, re, sys
+        - astropy
+        - montage_wrapper (cutouts only)
+        - more_itertools
+        - numpy
+    [Note: if cutout option is selected, a working installation of
+    Montage is required. This code was tested using Montage v3.3]
+
+IRDP MODULES:
+        - catalogue_compare
+        - coord_tools
+        - cutsources
+        - find_counterparts
+        - find_reference_sources
+        - params
+        - survey_params
+    [from github.com/fastradiobeth/infrared_dark_python]
+
+
+Method used:
+--------------------------------------------------------------------
+
+0 -  read catalogues and import coordinates, other parameter setup
+
+1 -	Removal of duplicate sources in the reference wavelength
+			Uses 'find_reference_sources' module
+            Filters the single wavelength catalogue sources to remove
+            duplicate sources in the catalogue (exact duplicates or closer
+            than specified angular separation)
+
+2 -	Source association by centroids
+ 			Uses 'find_counterparts' module
+            Loops over each source in the filtered reference wavelength
+            catalogue and compares to another single wavelength catalogue,
+            assigning a counterpart in the other wavelength if a centroid
+            in this catalogue is within a specified angular radius.
+            If more than one counterpart is identified, the counterpart
+            closest to the reference centroid is chosen. Only sources with
+            a counterpart found in all required wavelengths are returned.
+
+3 -	Removal of several reference sources assigned to same counterpart
+			Uses find_counterparts and catalogue_compare modules
+            Only uses sources in the candidate list returned from 2,
+            and creates second catalogue of sources using the longest
+            wavelength (assumed lowest resolution) and reference
+            wavelength centroids. This selects one reference source
+            per longest wavelength source, and sources with
+            reference+longest wavelength centroids appearing in both
+            catalogues are saved.
+
+4 - Catalogue output to output directory
+            Writes the final multiwavelength catalogues
+            i) Concise version with the IRDC map name assigned to the
+            reference centroid with the centroid coordinates of all
+            counterterpart in (glon,glat) in order of ascending wavelength
+            per line
+            ii) Full version with one line per counterpart per source,
+            with map name, source number in map in current catalogue,
+            (glon,glat) centroid coords, (ra,dec) icrs centroid coords,
+            and distance to reference centroid (")
+
+5 - Cutout creation (optional)
+            Uses cutsources module
+            Finds all available IRDC maps for cutting, and cuts all
+            sources in multiwavelength catalogue from matched maps to
+            a region of specfied angular diameter around reference
+            centroid.
+"""
+print('\nStarting up...\n')
 
 # packages
 # ------------------------------------------------------------------------------
@@ -14,7 +94,7 @@ import os
 import sys
 import re
 import numpy as np
-from more_itertools import unique_everseen 
+from more_itertools import unique_everseen
 
 # infrared_dark_python modules
 import coord_tools, find_reference_sources, find_counterparts, catalogue_compare, cutsources
@@ -22,6 +102,8 @@ import coord_tools, find_reference_sources, find_counterparts, catalogue_compare
 # essential parameters
 # ------------------------------------------------------------------------------
 from params import survey_code, wavelengths, wavelengths_excluded, wavelengths_required, reference_wavelength, duplicate_filter_type, separation_type, single_wl_cats, map_col, coord_cols, headerlines, coord_type, cat_loc, output_loc, want_cutouts
+
+print '\n' + '-'*15 + 'infrared dark python started' + '-'*15 + '\n'
 
 # beam/separation selection
 # ------------------------------------------------------------------------------
@@ -41,7 +123,7 @@ else:
     # use survey_params to select minimum beam
 	total_required = len(wavelengths_required)
 	beams = np.empty(total_required)
-	for x in range(total_required):    # TODO: for loop probably unecessary, test
+	for x in range(total_required):
 		beams[x] = wavelength_to_beam(wavelengths_required[x], survey_code)
 	min_beam = np.amin(beams)
 	beam = min_beam
@@ -91,21 +173,24 @@ total_sources = len(single_wl_maps[reference_wavelength])
 # filter reference wavelength list subject according to duplicate_filter_type
 # ------------------------------------------------------------------------------
 # TODO: do other_wavelengths require filtering too?
-
+print 'Creating filtered reference source list... \n'
 single_wl_maps[reference_wavelength], glon[reference_wavelength], glat[reference_wavelength] = find_reference_sources.duplicate_filter(single_wl_maps[reference_wavelength], glon[reference_wavelength], glat[reference_wavelength], same_wl_beam)
+print 'Number of reference sources:  ' + str(len(single_wl_maps[reference_wavelegnth])) +'\n'
 
 # find counterparts in specified wavelengths
 # ------------------------------------------------------------------------------
 # find all sources with a counterpart in all wavelengths_required and no
 # counterpart in wavelengths_excluded
-
+print 'Finding counterparts...\n'
 candidate_maps, candidate_glons, candidate_glats, candidate_dists = find_counterparts.find_counterparts(single_wl_maps, glon, glat, wavelengths, wavelengths_required, wavelengths_excluded, reference_wavelength, beam)
+print 'Number of sources found in all wavelengths:  ' + str(len(candidate_maps)) + '\n'
 
 # remove sources with multiple higher resolution sources assigned to one
 # lower resolution sources
 # ------------------------------------------------------------------------------
 # NOTE: direct duplicates only- see filtering note regarding further specification
 
+print 'Removing duplicates...\n'
 # using the current candidate list:
 # produce find counterparts_run with longest wl as ref, and then run through
 # your *new* (non-existent) catalogue comparison module
@@ -136,10 +221,12 @@ total_candidates = len(candidate_maps)
 ### TESTING: 160 quiet catalogue reproduction. Gives 840 candidates here. ###
 ###             -- one less explainable by running duplicate removal first
 
+print 'Total candidates found:  ' + str(total_candidates) + '\n'
+
 # print final set of sources to catalogue
 # ------------------------------------------------------------------------------
 # into output directory (catalogue directory may not have write permissions)
-
+print 'Writing catalogues...\n'
 # convert all coordinates to ra and dec
 candidate_ras = {}
 candidate_decs = {}
@@ -199,9 +286,8 @@ catalogue_out.close()
 # ------------------------------------------------------------------------------
 from params import cloud_loc
 if want_cutouts == 1:
+    print 'Creating cutouts...\n'
     cut_width, cutout_dir, filenames = cutsources.setup(catalogue_out_name,cat_loc)
-    # produce cutouts
-    # ------------------
     # need to match coordinate substrings in FITS filenames to candidate_maps
     for i,map_coord in enumerate(candidate_maps):
         # if map coodinate has FITS files, cut source from all FITS files of IRDC
@@ -213,3 +299,5 @@ if want_cutouts == 1:
             print 'Source in IRDC at ' + map_coord + ' not cut (no matching FITS file).'
 else:
     print 'No cutouts produced'
+
+print '\n' + '-'*15 + 'infrared dark python done!' + '-'*15 + '\n'
