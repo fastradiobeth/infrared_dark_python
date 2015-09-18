@@ -93,6 +93,7 @@ print('\nStarting up...\n')
 import os
 import sys
 import re
+import datetime
 import numpy as np
 from more_itertools import unique_everseen
 
@@ -175,7 +176,7 @@ total_sources = len(single_wl_maps[reference_wavelength])
 # TODO: do other_wavelengths require filtering too?
 print 'Creating filtered reference source list... \n'
 single_wl_maps[reference_wavelength], glon[reference_wavelength], glat[reference_wavelength] = find_reference_sources.duplicate_filter(single_wl_maps[reference_wavelength], glon[reference_wavelength], glat[reference_wavelength], same_wl_beam)
-print 'Number of reference sources:  ' + str(len(single_wl_maps[reference_wavelegnth])) +'\n'
+print 'Number of reference sources:  ' + str(len(single_wl_maps[reference_wavelength])) +'\n'
 
 # find counterparts in specified wavelengths
 # ------------------------------------------------------------------------------
@@ -238,7 +239,7 @@ col_width = 15
 catalogue_out_name = output_loc + 'python_src_assoc_'
 for x in wavelengths_required:
     catalogue_out_name += str(x)+'_'
-catalogue_out_name += str(beam)+'asec'
+catalogue_out_name += str(beam)+'asec_' + str(datetime.date.today())
 catalogue_out_full_path = catalogue_out_name + '_full.dat'
 catalogue_out_path = catalogue_out_name + '.dat'
 
@@ -287,7 +288,7 @@ catalogue_out.close()
 from params import cloud_loc
 if want_cutouts == 1:
     print 'Creating cutouts...\n'
-    cut_width, cutout_dir, filenames = cutsources.setup(catalogue_out_name,cat_loc)
+    cut_width, cutout_dir, filenames = cutsources.setup(catalogue_out_name)
     # need to match coordinate substrings in FITS filenames to candidate_maps
     for i,map_coord in enumerate(candidate_maps):
         # if map coodinate has FITS files, cut source from all FITS files of IRDC
