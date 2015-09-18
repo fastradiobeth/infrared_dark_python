@@ -70,5 +70,6 @@ def cut(ra, dec, files, cut_width, input_directory, output_directory, catalogue_
     """
     for file in files:
         # name assumes .fits files to remove suffix
+        status_name = output_directory + '/' + file[len(inputdirectory):-5] + '_' + str(catatlogue_index) + '.txt'
         output_name = output_directory + '/' + file[len(input_directory):-5] + '_' + str(catalogue_index) + '.fits'
-        montage.commands.mSubimage(file, output_name, ra, dec, cut_width)
+        montage.commands.mSubimage(file, output_name, ra, dec, cut_width, status_file=status_name)
