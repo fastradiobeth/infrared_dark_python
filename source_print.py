@@ -43,7 +43,6 @@ for x in coord_wavelengths:
     glon[x], glat[x] = np.loadtxt(new_cat, skiprows=headerlines, usecols=coord_cols[x], unpack=True)
 total_sources = len(cutout_maps)
 
-
 # convert all coordinates to ra and dec (J200)
 # ------------------------------------------------------------------------------
 gal_coords = {}
@@ -57,8 +56,11 @@ for w in coord_wavelengths:
     dec[w] = eq_coords[w].dec.degree
 
 wavelengths = [70, 160, 250, 350, 500]  #Hi-GAL wavelengths
+missing_error_count = 0
+log_error_count = 0
+success_count = 0
 
-for x in range(total_sources):
+for x in range(900,total_sources):
 	cutout_names = []
     	cloud_coord = cutout_maps[x]
    	cloud_name = (cloud_loc + 'HGL' + str(cloud_coord) + '_'+ str(reference_wavelength)+'mu_J2000.fits')
@@ -140,6 +142,15 @@ for x in range(total_sources):
 	        # save figure
 	        output_name = output_loc + 'HGL' + cloud_coord + '_160_quiet_printing_' + str(x) +'.pdf'
 	        fig_window.savefig(output_name)
-	        f0.close()
+		success_count +=1
 	except IOError:
 		print 'Problem finding FITS files for ' + cloud_title + ':  skipping source.... \n'
+		missing_error_count +=1
+	except Exception:
+		print 'Problem setting limits for log scale in ' + cloud_title + ': skipping sources.... \n'
+		log_error_count +=1
+        f0.close()
+
+print 'Sources with successful pdf:  ' + str(success_count) + '\n'
+print 'Missing file errors:  ' + str(missing_error_count) + '\n'
+print 'Log scale display errors:  ' + str(log_error_count) + '\n'
