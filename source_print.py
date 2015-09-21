@@ -18,13 +18,13 @@ from astropy import units as u
 
 # select locations of catalogues and FITS files
 # ------------------------------------------------------------------------------
-cat_loc = '/raid/scratch/bjones_IRDC/repos/infrared_dark_python/'
-cloud_loc = '/raid/scratch/bjones_IRDC/IRDCs/'
-cutout_loc = '/raid/scratch/bjones_IRDC/python_src_assoc_250_350_18.0asec_cutouts/'
-output_loc = '/raid/scratch/bjones_IRDC/repos/infrared_dark_python/print_format_250_350_18.0asec/png/'
+cat_loc = '/home/bjones/Documents/IRDC_catalogues/'
+cloud_loc = '/raid/scratch/bjones_IRDC/IRDC_full_sample/'
+cutout_loc = '/raid/scratch/bjones_IRDC/python_src_assoc_250_350_18.0asec_2015-09-18/'
+output_loc = '/raid/scratch/bjones_IRDC/full_sample_print_format/'
 
 # setup catalogue
-cat_name = 'python_src_assoc_250_350_18.0asec.dat'
+cat_name = 'python_src_assoc_250_350_18.0asec_2015-09-18.dat'
 new_cat = cat_loc + cat_name
 
 headerlines = 2
@@ -59,18 +59,15 @@ for w in coord_wavelengths:
 wavelengths = [70, 160, 250, 350, 500]  #Hi-GAL wavelengths
 
 for x in range(total_sources):
-    if x == 663:
-	print ' skipping source 49'
-    else:
 	cutout_names = []
     	cloud_coord = cutout_maps[x]
    	cloud_name = (cloud_loc + 'HGL' + str(cloud_coord) + '_'+ str(reference_wavelength)+'mu_J2000.fits')
   	for w in wavelengths:
-  	  	cutout_names.append(cutout_loc + 'HGL' + str(cloud_coord) + '_' + str(w) + 'mu_J2000_cutout_' + '160_quiet_'+str(x) +'.fits')
+  	  	cutout_names.append(cutout_loc + 'HGL' + str(cloud_coord) + '_' + str(w) + 'mu_J2000_'+str(x) +'.fits')
 	
 	# figure that fits on one landscape A4	
  	fig_window = mpl.figure(figsize=(10,7))
- 	title = 'Cutouts of [70, 250, 350]micron sources with no 160 counterpart from HGL'+ cloud_coord
+ 	title = 'Cutouts of [250, 350]micron sources with no 160 counterpart from HGL'+ cloud_coord
  	fig_window.suptitle(title, variant='small-caps')
  	cloud_title = 'HGL' + cloud_coord
  	# entire cloud

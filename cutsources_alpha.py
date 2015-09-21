@@ -27,10 +27,10 @@ from astropy import units as u
 # locations of catalogues, IRDCs and output files
 cat_loc = '/home/bjones/Documents/IRDC_catalogues/'
 cloud_loc = '/raid/scratch/bjones_IRDC/IRDCs/'
-output_loc = '/raid/scratch/bjones_IRDC/python_src_assoc_250_350_18.0asec_cutouts/'
+output_loc = '/home/bjones/Documents/extinction_cutouts_test/'
 
 # catalogue names and columns of cutout_cat that contain map and coords
-cutout_cat_name = 'python_src_assoc_250_350_18.0asec.dat'
+cutout_cat_name = 'catI_i.dat'
 cutout_headerlines = 2
 map_col =[0]
 coord_cols = [3,4]
@@ -141,7 +141,7 @@ for x in range(total_sources):
 	# loop over wavelegths
 	for k in range(len(wavelengths)):
 		cloud_name = (cloud_loc + 'HGL' + str(cloud_coord) + '_' + str(wavelengths[k]) + 'mu_J2000.fits')
-		output_name = output_loc + 'HGL' + str(cloud_coord) + '_' + str(wavelengths[k]) + 'mu_J2000_cutout_' + '160_quiet_'+str(x) +'.fits'
+		output_name = output_loc + 'HGL' + str(cloud_coord) + '_' + str(wavelengths[k]) + 'mu_J2000_'+str(x) + '.fits'
 		montage.commands.mSubimage(cloud_name, output_name, ra_src, dec_src, cut_width_arr[x])
 		print str(cloud_coord) + ' single source cut complete in all wls, saved to output_loc.'
 
