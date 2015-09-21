@@ -13,7 +13,6 @@ Required packages: datetime, re, glob, os, numpy, montage_wrapper
 Required infrared_dark_python files: coord_tools, params
 Note: Working Montage installation is required to use montage_wrapper
 """
-import datetime
 import re
 import glob
 import os
@@ -35,7 +34,7 @@ def setup(catalogue_name):
     # TODO: make this recursive search as different bands may be in subdirectories
     filenames = glob.glob(cloud_loc + '*.fits')
     # make subdirectory in output_loc for cutouts
-    cutout_dir = catalogue_name + '_' + str(datetime.date.today())
+    cutout_dir = catalogue_name 
     os.mkdir(cutout_dir)
 
     # select cut width
@@ -70,6 +69,9 @@ def cut(ra, dec, files, cut_width, input_directory, output_directory, catalogue_
     """
     for file in files:
         # name assumes .fits files to remove suffix
-        status_name = output_directory + '/' + file[len(inputdirectory):-5] + '_' + str(catatlogue_index) + '.txt'
+        status_name = output_directory + '/' + file[len(input_directory):-5] + '_' + str(catalogue_index) + '.txt'
         output_name = output_directory + '/' + file[len(input_directory):-5] + '_' + str(catalogue_index) + '.fits'
-        montage.commands.mSubimage(file, output_name, ra, dec, cut_width, status_file=status_name)
+	try:
+        	montage.commands.mSubimage(file, output_name, ra, dec, cut_width, status_file=status_name)
+	except MontageErorr:
+		print 'Sources in ' + file + ' not cut: source outside region'
