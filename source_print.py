@@ -18,7 +18,7 @@ from astropy import units as u
 
 # select locations of catalogues and FITS files
 # ------------------------------------------------------------------------------
-cat_loc = '/home/bjones/Documents/IRDC_catalogues/'
+cat_loc = '/raid/scratch/bjones_IRDC/'
 cloud_loc = '/raid/scratch/bjones_IRDC/IRDC_full_sample/'
 cutout_loc = '/raid/scratch/bjones_IRDC/python_src_assoc_250_350_18.0asec_2015-09-18/'
 output_loc = '/raid/scratch/bjones_IRDC/full_sample_print_format/'
