@@ -73,5 +73,5 @@ def cut(ra, dec, files, cut_width, input_directory, output_directory, catalogue_
         output_name = output_directory + '/' + file[len(input_directory):-5] + '_' + str(catalogue_index) + '.fits'
 	try:
         	montage.commands.mSubimage(file, output_name, ra, dec, cut_width)
-	except MontageError:
+	except montage.status.MontageError:
 		print 'Sources in ' + file + ' not cut: source outside region'

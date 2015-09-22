@@ -9,8 +9,10 @@
 # assumes naming convention of HGL[map-coords]... for all FITS files and that
 # cutouts have been generated using same catalogue (source numbering currently
 # requires this, future ammendment to be made here)
-
+import glob
 import numpy as np
+import matplotlib
+matplotlib.use('Agg')
 import aplpy
 import matplotlib.pyplot as mpl
 from astropy.coordinates import SkyCoord
@@ -20,11 +22,11 @@ from astropy import units as u
 # ------------------------------------------------------------------------------
 cat_loc = '/raid/scratch/bjones_IRDC/'
 cloud_loc = '/raid/scratch/bjones_IRDC/IRDC_full_sample/'
-cutout_loc = '/raid/scratch/bjones_IRDC/python_src_assoc_250_350_18.0asec_2015-09-18/'
+cutout_loc = '/raid/scratch/bjones_IRDC/python_src_assoc_250_350_18.0asec_2015-09-22/'
 output_loc = '/raid/scratch/bjones_IRDC/full_sample_print_format/'
 
 # setup catalogue
-cat_name = 'python_src_assoc_250_350_18.0asec_2015-09-18.dat'
+cat_name = 'python_src_assoc_250_350_18.0asec_2015-09-22.dat'
 new_cat = cat_loc + cat_name
 
 headerlines = 2
@@ -60,17 +62,33 @@ missing_error_count = 0
 log_error_count = 0
 success_count = 0
 
-for x in range(900,total_sources):
+# find all available FITS cutouts
+cutout_files = glob.glob(cutout_loc+'*.fits')
+# find all available IRDCs
+cloud_files = glob.glob(cloud_loc+'*.fits')
+
+for x in range(total_sources):
 	cutout_names = []
-    	cloud_coord = cutout_maps[x]
-   	cloud_name = (cloud_loc + 'HGL' + str(cloud_coord) + '_'+ str(reference_wavelength)+'mu_J2000.fits')
-  	for w in wavelengths:
-  	  	cutout_names.append(cutout_loc + 'HGL' + str(cloud_coord) + '_' + str(w) + 'mu_J2000_'+str(x) +'.fits')
+    	# find IRDC FITS file using non-exact catalogue names
+	cloud_coord = cutout_maps[x]
+	cloud_file_wavelength = '_'+str(reference_wavelength)+'mu_'
+	cloud_file_map = 'HGL'+str(cloud_coord)
+	matched_clouds = [s for s in cloud_files if cloud_file_map in s]
+	matched_ref_cloud = [s for s in matched_clouds if cloud_file_wavelength in s]
+   	cloud_name = matched_ref_cloud[0]
+	
+	# find IRDC cutout names using non-exact catalogue names
+	cutout_index = '_J2000_' + str(x) +'.fits'
+	matched_cutouts = [s for s in cutout_files if cutout_index in s]
+	for w in wavelengths:
+		cutout_wavelength = '_'+ str(w)+'mu'
+  	  	cutout_file_wavelength = [s for s in matched_cutouts if cutout_wavelength in s] 
+		cutout_names.append(cutout_file_wavelength[0])
 
    	try:
     		# figure that fits on one landscape A4
      		fig_window = mpl.figure(figsize=(10,7))
-     		title = 'Cutouts of [250, 350]micron sources with no 160 counterpart from HGL'+ cloud_coord
+     		title = 'Cutouts of [250, 350]micron source with no 160 counterpart from HGL'+ cloud_coord
      		fig_window.suptitle(title, variant='small-caps')
      		cloud_title = 'HGL' + cloud_coord
      		# entire cloud
@@ -149,8 +167,9 @@ for x in range(900,total_sources):
 	except Exception:
 		print 'Problem setting limits for log scale in ' + cloud_title + ': skipping sources.... \n'
 		log_error_count +=1
-        f0.close()
-
+	
+        mpl.close('all')
+	
 print 'Sources with successful pdf:  ' + str(success_count) + '\n'
 print 'Missing file errors:  ' + str(missing_error_count) + '\n'
 print 'Log scale display errors:  ' + str(log_error_count) + '\n'

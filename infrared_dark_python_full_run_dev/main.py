@@ -289,15 +289,18 @@ from params import cloud_loc
 if want_cutouts == 1:
     print 'Creating cutouts...\n'
     no_file = 0
+    multiple_cloud = 0
     cut_width, cutout_dir, filenames = cutsources.setup(catalogue_out_name)
     # need to match coordinate substrings in FITS filenames to candidate_maps
     for i,map_coord in enumerate(candidate_maps):
         # if map coodinate has FITS files, cut source from all FITS files of IRDC
-        map_coord_file = map_coord + '_'
+        map_coord_file = 'HGL'+ map_coord
 	matched_files = [s for s in filenames if map_coord_file in s]
         if len(matched_files) != 0:
             cutsources.cut(candidate_ras[reference_wavelength][i], candidate_decs[reference_wavelength][i], matched_files, cut_width, cloud_loc, cutout_dir, i)
-        else:
+            if len(matched_files) > 5:
+		multiple_cloud +=1
+	else:
             # catalogue source FITS file not found, put on some list somewhere or sth
             no_file +=1
 	    print 'Source in IRDC at ' + map_coord + ' not cut (no matching FITS file).'
@@ -305,4 +308,5 @@ else:
     print 'No cutouts produced'
 
 print 'Number of sources with no matching IRDC FITS file:  ' + str(no_file)
+print 'Number of sources with multiple IRDC FITS files matched:  ' +str(multiple_cloud)
 print '\n' + '-'*15 + 'infrared dark python done!' + '-'*15 + '\n'
