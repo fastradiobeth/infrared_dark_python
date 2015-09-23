@@ -75,16 +75,21 @@ for x in range(total_sources):
 	cloud_file_map = 'HGL'+str(cloud_coord)
 	matched_clouds = [s for s in cloud_files if cloud_file_map in s]
 	matched_ref_cloud = [s for s in matched_clouds if cloud_file_wavelength in s]
-   	cloud_name = matched_ref_cloud[0]
-	
+   	if len(matched_ref_cloud) !=0:
+		cloud_name = matched_ref_cloud[0]
+	else:
+		cloud_name = 'no_matched_cloud'
 	# find IRDC cutout names using non-exact catalogue names
 	cutout_index = '_J2000_' + str(x) +'.fits'
 	matched_cutouts = [s for s in cutout_files if cutout_index in s]
+	print len(matched_cutouts)
 	for w in wavelengths:
 		cutout_wavelength = '_'+ str(w)+'mu'
-  	  	cutout_file_wavelength = [s for s in matched_cutouts if cutout_wavelength in s] 
-		cutout_names.append(cutout_file_wavelength[0])
-
+  	  	cutout_file_wavelength = [s for s in matched_cutouts if cutout_wavelength in s]
+		if len(cutout_file_wavelength) !=0: 
+			cutout_names.append(cutout_file_wavelength[0])
+		else:
+			cutout_names.append('no_matched_file')
    	try:
     		# figure that fits on one landscape A4
      		fig_window = mpl.figure(figsize=(10,7))
