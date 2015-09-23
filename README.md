@@ -1,8 +1,19 @@
 # infrared_dark_python
 basic python code and outputs for use with catalogues of Hi-GAL IRDC sources.
-FITS cutouts of images have not been uploaded due to directory restrictions.
 
-Some (~5) pdf image files may be misplaced or missing due to rearrangements between categories. This will be ammended shortly.
+#####Known issues with IRDP
+
+* FITS cutouts of images have not been uploaded due to directory restrictions on number of files per directory
+* Original IRDC cloud FITS files are also not present due to size and number
+* pdf versions of the sources found in the full galactic longitude run have not been uploaded due to the number (~4000)
+
+*All of the above are available from scratch space if requested.*
+
+* Some (~5) pdf image files may be misplaced or missing due to rearrangements between categories. All cutouts and pdf files will be recreated for subcategories, with numbering from 0 in each category
+* A large number of files have been renamed and moved to and from scratch space and pulls may take longer than expected
+* source_print.py fills up the matplotlib cache whilst running due to the use of TeX characters. This will likely cause disk quota problems on JBCA accounts (standard limit is 300MB) when used to produce large numbers of pdf files, even if the output is to scratch space or external storage
+* source_print, cutsources and main are all currently set up for finding FITS files with non-exact coordinate matches in map names, due to clipping of decimal places in the Hyper single wavelength catalogues in use. This will introduce problems if multiple IRDC files are found with a catalogue map coordinate as a substring (e.g. a catalogue source listed as in map 350.898-0.9 will be matched to every IRDC FITS file with HGL350.898-0.9xx in the name). *this is currently unavoidable without failure on >50% of sources when cutting from files*
+
 
 Beth's favourite source is found at **infrared_dark_python/print_format_250_350_18.0asec/HGL28.087+0.067_160_quiet_printing_360.pdf**
 
