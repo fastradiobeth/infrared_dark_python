@@ -38,7 +38,6 @@ Beth's favourite source is found at **infrared_dark_python/print_format_250_350_
 
 ####160-QUIET CATALOGUES
 --------------------------------------------------------
-infrared_dark_python/find_counterparts_alpha.py outputs of sources detected in at least [250, 350] microns with no presence in 160 microns.
 
 1. **python_src_assoc_250_350_18.0asec.dat** and **python_src_assoc_250_350_18.0asec_full.dat**
   - uses minimum required wavelength beam (18.0", 250 microns), reference wavelength 250 microns, and does not check for 70 micron sources.
@@ -49,51 +48,24 @@ infrared_dark_python/find_counterparts_alpha.py outputs of sources detected in a
   - uses minimum required wavelength beam (10.2", 70 microns), reference wavelength 250 microns.
   - Contains 30 sources.
 
+
 ####160-QUIET CATEGORIES
 --------------------------------------------------------
-The sources in **python_src_assoc_250_350_18.0asec.dat** have sorted into 4 broad categories and some subcategories from visual inspection. Note that this sorting should not be taken as entirely accurate and is sensitive to human judgement. The entire set of Galactic Longitude 15 < l < 55 has been sorted into the categories as shown in the diagram alongside the number of sources of each type. (If image does not display, the pdf and png versions are in this directory). 
+The sources in **python_src_assoc_250_350_18.0asec.dat** have been sorted into 4 broad categories and some subcategories from visual inspection. Note that this sorting should not be taken as entirely accurate and is sensitive to human judgement. The entire set of Galactic Longitude 15 < l < 55 has been sorted into the categories as shown in the diagram alongside the number of sources of each type. (If image does not display, the pdf and png versions are in this directory). 
 
 ![categories chart]
 (https://github.com/fastradiobeth/infrared_dark_python/blob/master/quiet_at_160_categories.png)
 
 Various plots in **plots/** show the longitude distribution of the 15<l<55 160-quiet catalogue, as well as the distributions of the categories and subcategories with some comparison to the multiwavelength Hyper catalogues starting *IRDC_l015_l055**.
 
-Catelogues are in the *160_quiet_categories/* directory, with subdirectories containing the pdf images created by **source_print.py** in each main category- see note at top, subcategory directories will be created and missing sources recovered.
-
+Catelogues are in the *160_quiet_categories/* directory, with subdirectories containing the pdf images sorted into each main category- see note at top, subcategory directories will be created and missing sources recovered.
 
 ####PROTOSTELLAR CATALOGUES
 --------------------------------------------------------
-all outputs related for this section are located in **infrared_dark_python/protostellar_comparison/**
-infrared_dark_python/find_counterparts_alpha.py protostellar catalogue has been compared to the Hyper catalogues of protostellar (70-350 presence) and starless (160-350 presence) sources and the following catalogues produced:
-
-1. **python_src_assoc_70_160_250_350_10.2asec.dat**
-  - output from find_counterparts_alpha.py of all sources with counterparts found in all four wavelengths. glon and glat of each counterpart centroid are printed, with one row per source.
-  - Contains 1200 sources.
-      
-2. **python_src_assoc_70_160_250_350_10.2asec_full.dat**
-  - output from find_counterparts_alpha.py of all sources with counterparts found in all four wavelengths. One row is used per wavelength band per source. Contains glon, glat, ra, dec and distance of source from reference wavelength centroid.
-  - Contains 1200 sources.
-      
-3. **protostellar_hyper_proto_not_found.dat**
-  - catalogue of Hyper protostellar sources not recovered by find_counterparts_alpha.py, in format of original Hyper catalogue.
-  - Comparison used 70micron coordinates.
-  - Contains 49 sources.
-
-4. **protostellar_agreed_sources.dat**
-  - catalogue of find_counterparts_alpha.py protostellar sources also found in Hyper protostellar catalogue.
-  - Comparison used 70micron coordinates.
-  - Contains 993 sources. 
-
-5. **protostellar_misclassified_sources.dat**
- - catalogue of find_counterparts_alpha.py protostellar objects not appearing in Hyper protostellar catalogue but found in Hyper starless catalogue.
- - Comparisons against Hyper protostellar and starless catalogues used 70micron and 160micron coordinates respectively.
- - Contains 65 sources. 
-
-6. **protostellar_extra_sources.dat**
-  - catalogue of extra protostellar sources found by find_counterparts_alpha.py, appearing in neither the starless or protostellar Hyper catalogues. 
-  - Comparisons run against Hyper protostellar and starless used 70micron and 160micron coordinates respectively.
-  - Contains 142 sources.
-      
+all outputs for this section are located in *protostellar_comparison/*
+A protostellar catalogue from IRDP has been compared to the Hyper catalogues of protostellar (70-350 presence) and starless (160-350 presence) clumps, with all comparison results shown in the diagram below: 
+![protostellar chart]
+(https://github.com/fastradiobeth/infrared_dark_python/blob/master/protostellar_catalogue_comparison.png)
 
 All comparisons run using catalogue_compare_alpha.py. Catalogues 4, 5, and 6 are printed in the format of Catalogue 1.
-Protostellar source catalogue was created using Hi-GAL wavelengths [70, 160, 250, 350]microns, 160microns as the reference wavelength and a maximum separation to be considered the same object of 10.2" (70micron beam).
+Protostellar source catalogue was created using Hi-GAL wavelengths [70, 160, 250, 350]microns, 160microns as the reference wavelength and a maximum separation to be considered the same object of 10.2" (70micron beam). All fifferences between outputs have been studied and largely accounted for, as listed on the diagram.
