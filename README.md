@@ -51,43 +51,15 @@ infrared_dark_python/find_counterparts_alpha.py outputs of sources detected in a
 
 ####160-QUIET CATEGORIES
 --------------------------------------------------------
-The sources in **python_src_assoc_250_350_18.0asec.dat** have sorted into 4 broad categories from visual inspection. Note that this sorting should not be taken as entirely accurate and is sensitive to human judgement. The entire set of Galactic Longitude 15 < l < 55 has been sorted into the main categories.
+The sources in **python_src_assoc_250_350_18.0asec.dat** have sorted into 4 broad categories and some subcategories from visual inspection. Note that this sorting should not be taken as entirely accurate and is sensitive to human judgement. The entire set of Galactic Longitude 15 < l < 55 has been sorted into the categories as shown in the diagram alongside the number of sources of each type. (If image does not display, the pdf and png versions are in this directory). 
 
-The longitude distributions of the 4 different categories are shown in **longitude_IRDP_categories** and **longitude_IRDP_categories_stacked**, located in **plots/**. The longitude distribution of the 160-quiet set of all 841 sources is shown alongside the distributions of the *Hyper* starless and protostellar sets in **longitude_hyper_vs_IRDP_10bins**.
+![categories chart]
+(https://github.com/fastradiobeth/infrared_dark_python/blob/master/quiet_at_160_categories.png)
 
-#####Category I: Appears quiet at 160
-  - Defined as showing no/very weak emission at 160 microns, and present in 250 and 350. All sources showed no bright features at 70 microns. The subcategories specify whether the source is quiet or appears as a similarly shaped* dark feature at 70 microns. 
-  - Contains 358 sources (42.6%)
+Various plots in **plots/** show the longitude distribution of the 15<l<55 160-quiet catalogue, as well as the distributions of the categories and subcategories with some comparison to the multiwavelength Hyper catalogues starting *IRDC_l015_l055**.
 
-######Subcategories (full set)
-    i. Dark at 70 (86 sources)
-    ii. Quiet at 70 (272 sources)
+Catelogues are in the *160_quiet_categories/* directory, with subdirectories containing the pdf images created by **source_print.py** in each main category- see note at top, subcategory directories will be created and missing sources recovered.
 
-#####Category II: Appears bright at 160
-  - Shows emission at 160 microns that appears to be related to the 250 and 350 counterparts. 70 micron state is not specified.
-  - Comparison plots between the Hyper and IRDP protostellar and starless data sets are located in **plots/**
-  - Contains 230 sources (27.3%)
-
-######Subcategories (full set)
-    i. Appears quiet or dark at 70 microns [starless] (185)
-    ii. Appears bright at 70 [protostellar] (24 sources)
-    iii. Ambiguous at 70 (21 sources)
-
-#####Category III: Ambiguous at 160
-  - The source may appear 'quieter' but still visible at 160 microns, or it may not be clear whether the 160 micron emission is related to the clump, leading to ambiguity in whether a source is quiet at 160. 
-  - Contains 119 sources (14.1%)
-
-#####Category IV: Unclassified
-  - Some sources are very difficult to classify due to other bright features nearby. Some sources listed in a given map may also be outside the border, and therefore are not actually visible in the map. These are the two subcategories below.
-  - Contains 134 sources (15.9%)
-
-######Subcategories (full set)
-    i. Map problems (25 sources) - 3.0% of entire set
-    ii. Other bright feature(s) nearby (109 sources) - 13.0% of entire set
-
-Catelogues are within the **infrared_dark_python/160_quiet_categories** directory, with subdirectories containing the pdf images created by **source_print.py** in each category. More sources and subcategories coming soon...
-
-*Note that 'similarly shaped' implies that this sorting should be taken as an estimate rather than an absolute.
 
 ####PROTOSTELLAR CATALOGUES
 --------------------------------------------------------
