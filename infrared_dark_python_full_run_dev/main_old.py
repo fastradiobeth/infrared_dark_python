@@ -142,8 +142,8 @@ if filter_all_wl == 0:
     	same_wl_beam = 0
 else: # set filters for all single wavelength catalogues
     filters = np.empty(len(wavelengths))
-    for x in range(len(wavelengths))
-        filters[x] = wavelength_to_beam(wavelengths[x], survey code)
+    for x in range(len(wavelengths)):
+        filters[x] = wavelength_to_beam(wavelengths[x], survey_code)
 
 # check for directories and import single wl catalogues
 # ------------------------------------------------------------------------------
@@ -178,14 +178,14 @@ total_sources = len(single_wl_maps[reference_wavelength])
 
 # filter reference wavelength list subject according to duplicate_filter_type
 # ------------------------------------------------------------------------------
-# TODO: do other_wavelengths require filtering too?- yes, added, not tested
-if filter_all_wls == 0:
+# TODO: do other_wavelengths require filtering too?- yes
+if filter_all_wl == 0:
     print 'Creating filtered reference source list... \n'
     single_wl_maps[reference_wavelength], glon[reference_wavelength], glat[reference_wavelength] = find_reference_sources.duplicate_filter(single_wl_maps[reference_wavelength], glon[reference_wavelength], glat[reference_wavelength], same_wl_beam)
 else:
     print "Filtering all single wavelength catalogues...\n"
-    for x in range(len(wavelengths))
-        print "Filtering " + str(wavelengths[x]) + " by " + str(filter[x]) + " (" + str(len(single_wl_maps[wavelengths[x]])) + ")\n"
+    for x in range(len(wavelengths)):
+        print "Filtering " + str(wavelengths[x]) + " by " + str(filters[x]) + " (" + str(len(single_wl_maps[wavelengths[x]])) + ")\n"
         single_wl_maps[wavelengths[x]], glon[wavelengths[x]], glat[wavelengths[x]] = find_reference_sources.duplicate_filter(single_wl_maps[wavelengths[x]], glon[wavelengths[x]], glat[wavelengths[x]], filters[x])
         print "(now contains " + str(len(single_wl_maps[wavelengths[x]])) +")\n"
 
@@ -234,17 +234,6 @@ for x in wavelengths:
 total_candidates = len(candidate_maps)
 ### TESTING: 160 quiet catalogue reproduction. Gives 840 candidates here. ###
 ###             -- one less explainable by running duplicate removal first
-
-
-#### NEW DUPLICATE REMOVAL: all wavelengths checked
-for wl in wavelengths_required:
-    for i in range(len(candidate_maps)):
-        glon = candidate_glons[wl][i]
-        glat = candidate_glats[wl][i]
-
-
-
-
 
 print 'Total candidates found:  ' + str(total_candidates) + '\n'
 
