@@ -28,8 +28,8 @@ reference_wavelength = 250
 # filesystem setup
 # ------------------------------------------------------------------------------
 # final '/' required for each location string
-cat_loc = '/home/bjones/Documents/IRDC_catalogues/' # location of input catalogues
-output_loc = '/raid/scratch/bjones_IRDC/' # output location of cutouts
+cat_loc = '/home/beth/Documents/Hi-GAL_IRDC/IRDC_full_sample/' # location of input catalogues
+output_loc = '/home/beth/Desktop/' # output location of cutouts
 cloud_loc = '/raid/scratch/bjones_IRDC/IRDC_full_sample/' # IRDC FITS files location
 
 # single wavelength catalogue setup
@@ -65,7 +65,10 @@ coord_type = 0
 duplicate_filter_type = 3
 filter_beam = 160 # duplicate_filter_type 1 only
 fixed_filter = 5 # arcseconds, duplicate_filter_type 2 only
-
+# filter_all_wl
+#	0	- 	no
+#	1	-	yes, will filter all single wavelength catalogues by their beams
+filter_all_wl = 1
 
 # counterpart association setup
 # ------------------------------------------------------------------------------
@@ -86,7 +89,7 @@ beam_to_use = 160 # survey beam, separation_type 2 only
 # codes for want_cutouts
 #	0 - no
 #	1 - yes
-want_cutouts = 1
+want_cutouts = 0
 
 # codes for cutout width selection
 #	0 	-	use maximum angular diameter of starless sources
