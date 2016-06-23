@@ -20,8 +20,8 @@ I mean it, don't change any other files. Just this one.
 survey_code = 0
 
 # survey wavelengths to use
-wavelengths = [160,250,350]
-wavelengths_required = [250,350]
+wavelengths = [70,160,250,350]
+wavelengths_required = [70,250,350]
 wavelengths_excluded = [160]
 reference_wavelength = 250
 

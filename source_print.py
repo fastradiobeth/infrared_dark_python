@@ -22,20 +22,21 @@ from astropy import units as u
 # ------------------------------------------------------------------------------
 cat_loc = '/raid/scratch/bjones_IRDC/'
 cloud_loc = '/raid/scratch/bjones_IRDC/IRDC_full_sample/'
-cutout_loc = '/raid/scratch/bjones_IRDC/python_src_assoc_250_350_18.0asec_2015-09-22/'
-output_loc = '/raid/scratch/bjones_IRDC/full_sample_print_format/'
+cutout_loc = '/raid/scratch/bjones_IRDC/python_src_assoc_70_250_350_10.2asec_2016-06-23/'
+output_loc = '/raid/scratch/bjones_IRDC/full_sample_print_format/70_bright'
 
 # setup catalogue
-cat_name = 'python_src_assoc_250_350_18.0asec_2015-09-22.dat'
+cat_name = 'python_src_assoc_70_250_350_10.2asec_2016-06-23.dat'
 new_cat = cat_loc + cat_name
 
 headerlines = 2
 map_col = [0]   # map names that match FITS files of IRDCs
-coord_wavelengths = [250,350]
+coord_wavelengths = [70,250,350]
 reference_wavelength = 250
 coord_cols = {
-    250:[1,2],
-    350:[3,4]
+    70:[1,2],
+    250:[3,4],
+    350:[5,6]
 }
 
 glat = {}
@@ -93,7 +94,7 @@ for x in range(total_sources):
    	try:
     		# figure that fits on one landscape A4
      		fig_window = mpl.figure(figsize=(10,7))
-     		title = 'Cutouts of [250, 350]micron source with no 160 counterpart from HGL'+ cloud_coord
+     		title = 'Cutouts of [70, 250, 350]micron source with no 160 counterpart from HGL'+ cloud_coord
      		fig_window.suptitle(title, variant='small-caps')
      		cloud_title = 'HGL' + cloud_coord
      		# entire cloud
