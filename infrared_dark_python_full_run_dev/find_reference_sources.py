@@ -10,6 +10,7 @@ Module for filtering lists of sources detected in a single wavelength.
 Currently used in infrared_dark_python_full_run for removing duplicate
 reference sources.
 Required packages: numpy, infrared_dark_python/coord_tools
+NOW INCLUDING TIME TESTING
 """
 
 import coord_tools
