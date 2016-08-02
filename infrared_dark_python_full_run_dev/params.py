@@ -77,7 +77,7 @@ filter_all_wl = 1
 #	0	- miniumum survey beam of wavelengths_required (default)
 #	1	- select a survey beam_to_use as minimum separation
 #	2	-  set separation for source association to value of fixed_beam
-separation_type = 0
+separation_type = 1
 fixed_beam = 5 # arcseconds, separation_type 1 only
 beam_to_use = 160 # survey beam, separation_type 2 only
 
