@@ -242,10 +242,6 @@ for wl in wavelengths_required:
         glon = candidate_glons[wl][i]
         glat = candidate_glats[wl][i]
 
-
-
-
-
 print 'Total candidates found:  ' + str(total_candidates) + '\n'
 
 # print final set of sources to catalogue

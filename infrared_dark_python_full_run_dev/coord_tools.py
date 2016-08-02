@@ -12,8 +12,6 @@ astronomical coordinates, designed for working with Hi-GAL IRDC catalogues.
 Requires numpy and astropy.
 """
 import numpy as np
-from astropy.coordinates import SkyCoord
-from astropy import units as u
 
 def ang_sep(test_x, test_y, source_x, source_y):
 	"""
@@ -51,6 +49,8 @@ def icrs_to_galactic(ra, dec):
 	Converts coordinates in RA and DEC (icrs, degrees) to GLON and
 	GLAT (degrees)
 	"""
+	from astropy.coordinates import SkyCoord
+	from astropy import units as u
 	source_coords = SkyCoord(ra*u.degree, dec*u.degree, frame='icrs')
   	source_coords = source_coords.transform_to('galactic')
   	glon = source_coords.l.degree
@@ -62,6 +62,8 @@ def galactic_to_icrs(glon, glat):
 	Converts coordinates in GLON and GLAT (degrees) to RA and DEC
 	(icrs, degrees)
 	"""
+	from astropy.coordinates import SkyCoord
+	from astropy import units as u
 	source_coords = SkyCoord(glon*u.degree, glat*u.degree, frame='galactic')
 	source_coords = source_coords.transform_to('icrs')
 	ra = source_coords.ra.degree
